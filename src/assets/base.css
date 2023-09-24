@@ -1,0 +1,30 @@
+@font-face {
+  font-family: 'Itim Regular';
+  src: url('../assets/ItimRegular.ttf');
+}
+
+*{
+  padding: 0;
+  margin: 0;
+}
+
+@keyframes FadeIn {
+  from {
+    opacity: 0;
+  }
+  to{
+    opacity: 1;
+  }
+}
+
+:root {
+  --primary-color: #ef86c1;
+  --secondary-color: #ed86c1;
+  --accent-color: #d498ca;
+  --background-color: #FFFFFF;
+  --text-font-color: #212121;
+  --bottom-border-color: #BDBDBD;
+  
+}
+
+
