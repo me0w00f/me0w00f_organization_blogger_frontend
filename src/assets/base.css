@@ -3,16 +3,20 @@
   src: url('../assets/ItimRegular.ttf');
 }
 
-*{
+* {
   padding: 0;
   margin: 0;
 }
 
 @keyframes FadeIn {
   from {
+    position: relative;
+    top: -100px;
     opacity: 0;
   }
-  to{
+  to {
+    position: relative;
+    top: 0px;
     opacity: 1;
   }
 }
@@ -21,10 +25,7 @@
   --primary-color: #ef86c1;
   --secondary-color: #ed86c1;
   --accent-color: #d498ca;
-  --background-color: #FFFFFF;
+  --background-color: #ffffff;
   --text-font-color: #212121;
-  --bottom-border-color: #BDBDBD;
-  
+  --bottom-border-color: #bdbdbd;
 }
-
-

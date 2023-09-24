@@ -1,14 +1,13 @@
 <script lang="ts">
+import HomePage from '@/components/HomePage/HomePage.vue';
 
-export default{
-    components:{
-        // MainLogo
-    }
+export default {
+  components: {
+    HomePage
+  }
 }
 </script>
 
 <template>
-    <div >
-
-    </div>
+  <HomePage />
 </template>

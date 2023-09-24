@@ -1,11 +1,13 @@
 <script lang="ts">
-export default {
+import PostsPage from '@/components/Posts/PostsPage.vue'
 
+export default {
+  components: {
+    PostsPage
+  }
 }
 </script>
 
 <template>
-    <div>
-        
-    </div>
+  <PostsPage />
 </template>

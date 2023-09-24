@@ -1,6 +1,6 @@
 <script lang="ts">
 import { RouterView } from 'vue-router'
-import NavBar from './components/NavBar/NavBar.vue';
+import NavBar from './components/NavBar/NavBar.vue'
 
 export default {
   components: {
@@ -15,6 +15,4 @@ export default {
   <RouterView />
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

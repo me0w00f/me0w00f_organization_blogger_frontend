@@ -11,10 +11,10 @@ export default {
   <div class="main-bar-in-navbar">
     <p class="main-title-in-navbar">Me0W00f Technology Blog</p>
     <div class="link-container-in-navbar">
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/login">Login</RouterLink>
-        <RouterLink to="/posts">Articles</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
+      <RouterLink to="/">Home</RouterLink>
+      <RouterLink to="/login">Login</RouterLink>
+      <RouterLink to="/posts">Articles</RouterLink>
+      <RouterLink to="/about">About</RouterLink>
     </div>
   </div>
 </template>
@@ -39,18 +39,16 @@ export default {
   text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5); /* black shadow with 2px offset and 4px blur */
 }
 
-
-
 .link-container-in-navbar {
-    height: 78px;
-    margin-left: auto;
-    margin-right: 20px
+  height: 78px;
+  margin-left: auto;
+  margin-right: 20px;
 }
 .link-container-in-navbar a {
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-family: 'Itim Regular';
   font-size: 25px;
   color: #ffffff;
-  margin-left: 25px;
+  margin-left: 40px;
   line-height: 78px;
   text-decoration: none;
   text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);

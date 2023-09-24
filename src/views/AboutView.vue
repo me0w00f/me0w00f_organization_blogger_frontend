@@ -1,12 +1,12 @@
 <script lang="ts">
 import AboutPage from '@/components/About/AboutPage.vue'
 export default {
-    components: {
-        AboutPage
-    }
+  components: {
+    AboutPage
+  }
 }
 </script>
 
 <template>
-    <AboutPage />
+  <AboutPage />
 </template>
