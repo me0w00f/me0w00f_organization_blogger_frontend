@@ -1,22 +1,110 @@
 <script lang="ts">
+import axios from 'axios'
+
 export default {
-  data(){
+  data() {
     return {
-      
+      no_account: false,
+      user_name: '',
+      password: '',
+      confirm_password: '',
+      email: '',
+      message: ''
+    }
+  },
+  methods: {
+    switch_to_register_or_login() {
+      this.no_account = !this.no_account
+      this.message = ''
+    },
+    register_request() {
+      // Send a request to server
+      // to register the account.
+      if (
+        this.user_name != '' &&
+        this.password != '' &&
+        this.confirm_password != '' &&
+        this.email != ''
+      ) {
+        if (this.password === this.confirm_password) {
+          axios
+            .post('/api/user/sign_up', {
+              user_name: this.user_name,
+              password: this.password,
+              email: this.email
+            })
+            .then((response) => {
+              console.log(response.data.Status)
+              this.confirm_password = ''
+              this.email = ''
+              this.switch_to_register_or_login()
+            })
+            .catch((error) => {
+              this.message = error.response.data.detail
+            })
+        } else {
+          this.message = 'The password typed twice are different!'
+        }
+      } else {
+        this.message = 'The form cannot be empty!'
+      }
+    },
+    login_request() {
+      // Send a request to server,
+      // to get a token of user.
+      if (this.user_name != '' && this.password != '') {
+        const login_form_data = new FormData()
+        login_form_data.append('username', this.user_name)
+        login_form_data.append('password', this.password)
+        axios
+          .post('/api/user/token', login_form_data)
+          .then((response) => {
+            if (response.status == 200) {
+              console.log(response.data.access_token)
+              localStorage.setItem('token', response.data.access_token)
+              this.$router.push('/')
+            }
+          })
+          .catch((error) => {
+            this.message = error.response.data.detail
+          })
+      } else {
+        this.message = 'Username or password cannot be empty!'
+      }
     }
   }
 }
 </script>
 
 <template>
-  <div class="login-page-container">
+  <div class="login-page-container" v-if="no_account == false">
     <h1 class="title-in-login-page">Login to Me0w00f</h1>
-    <p class="text-in-login-page">Login to send posts and manage contents.</p>
-    
-    <input class="input-in-login-page" type="text" placeholder="USERNAME"/>
-    <input class="input-in-login-page" type="password" placeholder="PASSWORD"/>
-    <button class="login-button-in-login-page">Sign In</button>
-    <button class="login-button-in-login-page" id="sign_up">No Account? Sign up!</button>
+    <p class="text-in-login-page">Login to publish and manage contents.</p>
+    <input class="input-in-login-page" type="text" placeholder="username" v-model="user_name" />
+    <input class="input-in-login-page" type="password" placeholder="password" v-model="password" />
+    <button class="login-button-in-login-page" @click="login_request">Sign In</button>
+    <button class="login-button-in-login-page" id="sign_up" @click="switch_to_register_or_login">
+      No Account? Sign up!
+    </button>
+    <p class="text-in-login-page">{{ message }}</p>
+  </div>
+  <div class="login-page-container" v-if="no_account">
+    <h1 class="title-in-login-page">Create your account</h1>
+    <p class="text-in-login-page">Create an account to publish content.</p>
+    <input class="input-in-login-page" type="text" placeholder="username" v-model="user_name" />
+    <input class="input-in-login-page" type="password" placeholder="password" v-model="password" />
+    <input
+      class="input-in-login-page"
+      type="password"
+      placeholder="confirm password"
+      v-model="confirm_password"
+    />
+    <input class="input-in-login-page" type="text" placeholder="email" v-model="email" />
+    <button class="login-button-in-login-page" @click="register_request">Sign Up</button>
+    <button class="login-button-in-login-page" id="sign_up" @click="switch_to_register_or_login">
+      Have an account already? Sign In!
+    </button>
+    <p class="text-in-login-page">{{ message }}</p>
   </div>
 </template>
 
@@ -28,7 +116,7 @@ export default {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  animation: FadeIn 1s;
+  animation: FadeIn 0.8s;
 }
 
 .title-in-login-page {
@@ -42,7 +130,6 @@ export default {
   font-family: 'Itim Regular';
   font-size: 25px;
   color: var(--text-font-color);
-  
 }
 
 .input-in-login-page {
@@ -80,7 +167,6 @@ export default {
   cursor: pointer;
   transition: ease-in-out 200ms;
   box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.2);
-
 }
 
 .login-button-in-login-page:hover {
@@ -95,6 +181,7 @@ export default {
 
 #sign_up {
   background-color: #ebebeb;
+  text-shadow: none;
   color: var(--text-font-color);
 }
 

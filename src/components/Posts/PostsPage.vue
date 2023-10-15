@@ -7,5 +7,11 @@ export default {
 </script>
 
 <template>
-  <div></div>
+  <div class="posts-page-container">
+    
+  </div>
 </template>
+
+<style scoped>
+
+</style>

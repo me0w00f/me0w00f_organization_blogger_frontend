@@ -1,8 +1,19 @@
 <script lang="ts">
 import { RouterLink } from 'vue-router'
 export default {
+  data(){
+    return {
+      logged_status: false
+    }
+  },
+  methods: {
+    
+  },
   components: {
     RouterLink
+  },
+  mounted(){
+    
   }
 }
 </script>

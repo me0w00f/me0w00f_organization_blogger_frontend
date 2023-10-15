@@ -1,6 +1,16 @@
 @font-face {
   font-family: 'Itim Regular';
-  src: url('../assets/ItimRegular.ttf');
+  src: url('./ItimRegular.ttf');
+}
+
+@font-face {
+  font-family: 'Mooli-Regular';
+  src: url(./Mooli-Regular.ttf);
+}
+
+@font-face {
+  font-family: 'NotoSansSC-VariableFont_wght';
+  src: url(./NotoSansSC-VariableFont_wght.ttf);
 }
 
 * {

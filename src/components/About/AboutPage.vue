@@ -1,6 +1,8 @@
 <script lang="ts">
 export default {
-  components: {}
+  components: {
+    
+  }
 }
 </script>
 
@@ -19,7 +21,7 @@ export default {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  animation: FadeIn 1s;
+  animation: FadeIn 0.8s;
 }
 
 .logo-bar {
