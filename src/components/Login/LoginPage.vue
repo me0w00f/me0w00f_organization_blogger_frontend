@@ -1,5 +1,6 @@
 <script lang="ts">
 import axios from 'axios'
+import { AuthenticateStatus } from '@/stores/authentication_status'
 
 export default {
   data() {
@@ -62,6 +63,12 @@ export default {
             if (response.status == 200) {
               console.log(response.data.access_token)
               localStorage.setItem('token', response.data.access_token)
+              AuthenticateStatus().setLogStatus(true)
+              console.log(AuthenticateStatus().isLogged)
+              this.user_name = ''
+              this.password = ''
+              this.confirm_password = ''
+              this.email = ''
               this.$router.push('/')
             }
           })

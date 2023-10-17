@@ -1,23 +1,45 @@
-<!-- eslint-disable vue/require-v-for-key -->
-
 <script lang="ts">
 import axios from 'axios'
+
+type BlogPost = {
+  id: Number
+  post_uuid: String
+  title: String
+  author_uuid: String
+  author_name: String
+  tags: String
+  category_id: Number
+  category: String
+  comment: Boolean
+  create_time: Date
+  update_time: Date
+}
+
+type PostList = BlogPost[]
 
 export default {
   data() {
     return {
-      article_list: Array
+      posts: { data: [] as BlogPost[] },
+      isLoading: false,
+      page: 1
     }
   },
   methods: {
-    get_all_posts() {
-      axios.get('/api/resources/posts/1').then((response) => {
-        this.article_list = response.data
-      })
+    async getPosts(page?: Number) {
+      this.isLoading = true
+      try {
+        const response = await axios.get<PostList>('/api/resources/posts/' + page?.toString())
+        this.posts.data = response.data
+      } catch (error) {
+        console.log(error)
+      } finally {
+        this.isLoading = false
+      }
     }
   },
   mounted() {
-    this.get_all_posts()
+    this.getPosts(this.page)
   }
 }
 </script>
@@ -37,30 +59,17 @@ export default {
       </p>
     </div>
     <div class="article-list">
-      <!-- {{ article_list }} -->
-
-      <div class="post-items" v-for="items in article_list">
-        <h1 class="post-title">
-          {{ (items as any).title as any }}
-        </h1>
+      <p class="post-info-text" v-if="isLoading">Loading.....</p>
+      <div class="post-items" v-for="post in posts.data">
+        <h1 class="post-title">{{ post.title }}</h1>
         <div class="mid-control">
-          <p class="post-info-text">
-            {{ (items as any).author_name }}
-          </p>
-          <p class="post-info-text">
-            {{ (items as any).category }}
-          </p>
-          <p class="post-info-text">
-            {{ (items as any).tags }}
-          </p>
+          <p class="post-info-text">{{ post.author_name }}</p>
+          <p class="post-info-text">{{ post.category }}</p>
+          <p class="post-info-text">{{ post.tags }}</p>
         </div>
         <div class="foot-control">
-          <p class="post-info-text posts-update">
-            Updated at: {{ (items as any).update_time }}
-          </p>
-          <p class="post-info-text posts-create">
-            Created at: {{ (items as any).create_time }}
-          </p>
+          <p class="post-info-text posts-update">{{ post.update_time }}</p>
+          <p class="post-info-text posts-create">{{ post.create_time }}</p>
         </div>
       </div>
     </div>

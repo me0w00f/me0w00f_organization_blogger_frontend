@@ -1,19 +1,49 @@
 <script lang="ts">
 import { RouterLink } from 'vue-router'
+import { AuthenticateStatus } from '@/stores/authentication_status'
+import { storeToRefs } from 'pinia'
+
 export default {
-  data(){
+  data() {
     return {
-      logged_status: false
+      isNotLogged: true
     }
   },
   methods: {
-    
+    CheckLoggingStatus() {
+      if (this.logStatus.isLogged) {
+        console.log(this.logStatus.isLogged)
+        this.isNotLogged = false
+      } else {
+        this.isNotLogged = true
+      }
+    },
+    logout() {
+      localStorage.removeItem('token')
+      AuthenticateStatus().setLogStatus(false)
+      this.$router.push('/')
+      console.log(this.logStatus.isLogged)
+    }
   },
   components: {
     RouterLink
   },
-  mounted(){
-    
+  mounted() {
+    this.CheckLoggingStatus()
+  },
+  setup() {
+    const logStatus = AuthenticateStatus()
+    const UpdateLogStatus = storeToRefs(logStatus)
+
+    return {
+      UpdateLogStatus,
+      logStatus
+    }
+  },
+  watch: {
+    'logStatus.isLogged'(newValue, oldValue) {
+      this.CheckLoggingStatus()
+    }
   }
 }
 </script>
@@ -23,7 +53,8 @@ export default {
     <p class="main-title-in-navbar">Me0W00f Technology Blog</p>
     <div class="link-container-in-navbar">
       <RouterLink to="/">Home</RouterLink>
-      <RouterLink to="/login">Login</RouterLink>
+      <RouterLink to="/login" v-if="isNotLogged">Login</RouterLink>
+      <button id="LogOut" @click="logout" v-else>Logout</button>
       <RouterLink to="/posts">Articles</RouterLink>
       <RouterLink to="/about">About</RouterLink>
     </div>
@@ -67,5 +98,19 @@ export default {
 
 .router-link-exact-active {
   font-weight: bolder;
+}
+
+#LogOut {
+  font-family: 'Itim Regular';
+  font-size: 25px;
+  color: #ffffff;
+  margin-right: auto;
+  margin-left: 40px;
+  height: 78px;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background-color: var(--primary-color);
+  text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
 }
 </style>
