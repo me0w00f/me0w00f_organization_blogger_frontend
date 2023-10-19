@@ -12,13 +12,13 @@ export default {
   methods: {
     CheckLoggingStatus() {
       if (localStorage.getItem('token') != null) {
-        this.logStatus.setLogStatus(true)
+        this.logStatus.setLogStatus(true);
       }
     }
   },
   setup() {
-    const logStatus = AuthenticateStatus()
-    const SavedLogStatus = storeToRefs(logStatus)
+    const logStatus = AuthenticateStatus();
+    const SavedLogStatus = storeToRefs(logStatus);
 
     return {
       SavedLogStatus,
@@ -26,7 +26,7 @@ export default {
     }
   },
   mounted() {
-    this.CheckLoggingStatus()
+    this.CheckLoggingStatus();
   }
 }
 </script>

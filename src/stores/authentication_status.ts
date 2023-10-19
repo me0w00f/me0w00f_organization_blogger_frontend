@@ -6,7 +6,7 @@ export const AuthenticateStatus = defineStore('authenticate_status', {
   }),
   actions: {
     setLogStatus(status: boolean) {
-      this.isLogged = status
+      this.isLogged = status;
     }
   }
 })

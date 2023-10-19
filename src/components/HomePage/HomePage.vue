@@ -36,8 +36,12 @@ export default {
       } finally {
         this.isLoading = false
       }
+    },
+    ReadPost(post_uuid: String){
+      this.$router.push('/posts/' + post_uuid);
     }
   },
+
   mounted() {
     this.getPosts(this.page)
   }
@@ -61,7 +65,7 @@ export default {
     <div class="article-list">
       <p class="post-info-text" v-if="isLoading">Loading.....</p>
       <div class="post-items" v-for="post in posts.data">
-        <h1 class="post-title">{{ post.title }}</h1>
+        <h1 class="post-title" @click="ReadPost(post.post_uuid)">{{ post.title }}</h1>
         <div class="mid-control">
           <p class="post-info-text">{{ post.author_name }}</p>
           <p class="post-info-text">{{ post.category }}</p>
