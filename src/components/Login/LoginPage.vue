@@ -27,13 +27,19 @@ export default {
         this.confirm_password != '' &&
         this.email != ''
       ) {
+        // Check if the value of the password is equal to the value of confirm_password.
         if (this.password === this.confirm_password) {
+          // If so, send the request to server to create an account.
           axios
             .post('/api/user/sign_up', {
               user_name: this.user_name,
               password: this.password,
               email: this.email
             })
+            // Then get the status data from the response.
+            // If it is success, then clean the value of the confirm_password and email.
+            // And then run the method switch_to_register_or_login() to switch the page for user
+            // to login his/her account.
             .then((response) => {
               console.log(response.data.Status)
               this.confirm_password = ''

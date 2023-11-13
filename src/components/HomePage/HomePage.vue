@@ -1,6 +1,10 @@
 <script lang="ts">
 import axios from 'axios'
+import { AuthenticateStatus } from '@/stores/authentication_status'
+import { storeToRefs } from 'pinia'
+import UploadPanel from './UploadPanel.vue'
 
+// Define the type BlogPost.
 type BlogPost = {
   id: Number
   post_uuid: String
@@ -15,6 +19,18 @@ type BlogPost = {
   update_time: Date
 }
 
+// Define the type UserInfo.
+type UserInfo = {
+  id: Number
+  user_name: String
+  nick_name: String
+  administrator: Boolean
+  email: String
+  bio: String
+  avatar: string
+}
+
+// Define a list contains multi BlogPost.
 type PostList = BlogPost[]
 
 export default {
@@ -22,7 +38,9 @@ export default {
     return {
       posts: { data: [] as BlogPost[] },
       isLoading: false,
-      page: 1
+      page: 1,
+      user_info: {} as UserInfo,
+      isLogged: false
     }
   },
   methods: {
@@ -37,13 +55,49 @@ export default {
         this.isLoading = false
       }
     },
-    ReadPost(post_uuid: String){
+    async getUserInfo() {
+      try {
+        const headers = {
+          Authorization: 'Bearer ' + localStorage.getItem('token')
+        }
+        const response = await axios.get<UserInfo>('/api/resources/user_info/get', {
+          headers: headers
+        })
+        this.user_info = response.data
+        // console.log(response.data)
+      } catch (error) {}
+    },
+    ReadPost(post_uuid: String) {
       this.$router.push('/posts/' + post_uuid);
+    },
+    CheckLoggingStatus() {
+      if (this.logStatus.isLogged) {
+        this.isLogged = true;
+      } else {
+        this.isLogged = false;
+      }
     }
   },
-
+  setup() {
+    const logStatus = AuthenticateStatus();
+    const UpdateLogStatus = storeToRefs(logStatus);
+    return {
+      UpdateLogStatus,
+      logStatus
+    }
+  },
+  watch: {
+    'logStatus.isLogged'(newValue, oldValue) {
+      this.CheckLoggingStatus();
+    }
+  },
   mounted() {
-    this.getPosts(this.page)
+    this.CheckLoggingStatus();
+    this.getPosts(this.page);
+    this.getUserInfo(); 
+  },
+  components: {
+    UploadPanel
   }
 }
 </script>
@@ -51,16 +105,18 @@ export default {
 <template>
   <div class="home-page-container">
     <div class="account-info">
-      <div class="avatar">
-        <img
-          class="avatar-img"
-          src="https://weepingdogel.github.io/photo_2021-07-21_03-31-50.jpg"
-        />
+      <div class="avatar" v-if="isLogged">
+        <img class="avatar-img" :src="user_info.avatar" />
       </div>
-      <p class="user-name-text">WeepingDogel</p>
-      <p class="bio-text">
-        I'm afraid once something is truly lost, which can never come back again.
+      <p class="user-name-text" v-if="isLogged">{{ user_info.nick_name }}</p>
+      <p class="bio-text" v-if="isLogged">
+        {{ user_info.bio }}
       </p>
+      <div class="button-container" v-if="isLogged">
+        <button class="post-upload-button">Avatar</button>
+        <button class="post-upload-button" v-if="user_info.administrator">Post</button>
+        <button class="post-upload-button" v-if="user_info.administrator">Manage</button>
+      </div>
     </div>
     <div class="article-list">
       <p class="post-info-text" v-if="isLoading">Loading.....</p>
@@ -209,5 +265,38 @@ p {
 
 .posts-create {
   margin-right: 10px;
+}
+
+.post-upload-button {
+  width: 100px;
+  height: 40px;
+  outline: none;
+  border: none;
+  background-color: var(--primary-color);
+  color: #f1f1f1;
+  font-family: 'Itim Regular';
+  font-size: 20px;
+  text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
+  border-radius: 5px;
+  cursor: pointer;
+  transition: ease-in-out 200ms;
+  box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.2);
+}
+
+.post-upload-button:hover {
+  transition: ease-in-out 200ms;
+  background-color: var(--accent-color);
+}
+
+.post-upload-button:active {
+  transition: ease-in-out 200ms;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.button-container {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 }
 </style>

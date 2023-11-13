@@ -10,6 +10,7 @@ export default {
     }
   },
   methods: {
+    // Check the status of login.
     CheckLoggingStatus() {
       if (this.logStatus.isLogged) {
         console.log(this.logStatus.isLogged)
