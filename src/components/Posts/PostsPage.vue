@@ -2,7 +2,6 @@
 import axios from 'axios'
 import MarkDownItHighlightjs from 'markdown-it-highlightjs'
 
-
 // Define the type BlogPost,
 // which contains the data from server.
 type BlogPost = {
@@ -68,12 +67,12 @@ export default {
     <h1 class="post-title">{{ post_data.title }}</h1>
     <h2 class="post-info-text">{{ post_data.author }} | {{ post_data.category }} | CREATE:{{ post_data.create_time }} | UPDATE:{{ post_data.update_time }}</h2>
     <div class="content-text" v-html="post_data.content">
-
     </div>
   </div>
 </template>
 
 <style scoped>
+
 
 .posts-page-container {
   width: 55vw;
@@ -84,7 +83,7 @@ export default {
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  animation: FadeIn 0.8s;
+  animation: FadeIn 0.5s;
 }
 
 .content-text {
@@ -121,6 +120,4 @@ export default {
   font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght';
   font-weight: 300;
 }
-
-
 </style>

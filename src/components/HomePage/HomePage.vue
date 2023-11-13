@@ -2,7 +2,8 @@
 import axios from 'axios'
 import { AuthenticateStatus } from '@/stores/authentication_status'
 import { storeToRefs } from 'pinia'
-import UploadPanel from './UploadPanel.vue'
+import UploadPage from './UploadPage.vue'
+import ProfilePage from './ProfilePage.vue'
 
 // Define the type BlogPost.
 type BlogPost = {
@@ -40,7 +41,9 @@ export default {
       isLoading: false,
       page: 1,
       user_info: {} as UserInfo,
-      isLogged: false
+      isLogged: false,
+      UploadPageON: false,
+      ProfilePageON: false
     }
   },
   methods: {
@@ -68,19 +71,37 @@ export default {
       } catch (error) {}
     },
     ReadPost(post_uuid: String) {
-      this.$router.push('/posts/' + post_uuid);
+      this.$router.push('/posts/' + post_uuid)
     },
     CheckLoggingStatus() {
       if (this.logStatus.isLogged) {
-        this.isLogged = true;
+        this.isLogged = true
       } else {
-        this.isLogged = false;
+        this.isLogged = false
       }
+    },
+    OpenUploadPage() {
+      // Load and display the component UploadPanel.vue
+      this.UploadPageON = true
+      this.ProfilePageON = false
+    },
+    CloseUploadPage() {
+      this.UploadPageON = false
+    },
+    OpenProfilePage() {
+      this.ProfilePageON = true
+      this.UploadPageON = false
+    },
+    CloseProfilePage() {
+      this.ProfilePageON = false
+    },
+    ManageMent() {
+      //
     }
   },
   setup() {
-    const logStatus = AuthenticateStatus();
-    const UpdateLogStatus = storeToRefs(logStatus);
+    const logStatus = AuthenticateStatus()
+    const UpdateLogStatus = storeToRefs(logStatus)
     return {
       UpdateLogStatus,
       logStatus
@@ -88,16 +109,17 @@ export default {
   },
   watch: {
     'logStatus.isLogged'(newValue, oldValue) {
-      this.CheckLoggingStatus();
+      this.CheckLoggingStatus()
     }
   },
   mounted() {
-    this.CheckLoggingStatus();
-    this.getPosts(this.page);
-    this.getUserInfo(); 
+    this.CheckLoggingStatus()
+    this.getPosts(this.page)
+    this.getUserInfo()
   },
   components: {
-    UploadPanel
+    UploadPage,
+    ProfilePage
   }
 }
 </script>
@@ -113,12 +135,16 @@ export default {
         {{ user_info.bio }}
       </p>
       <div class="button-container" v-if="isLogged">
-        <button class="post-upload-button">Avatar</button>
-        <button class="post-upload-button" v-if="user_info.administrator">Post</button>
+        <button class="post-upload-button" @click="OpenProfilePage">Profile</button>
+        <button class="post-upload-button" v-if="user_info.administrator" @click="OpenUploadPage">
+          Post
+        </button>
         <button class="post-upload-button" v-if="user_info.administrator">Manage</button>
       </div>
     </div>
-    <div class="article-list">
+    <ProfilePage :Opened="ProfilePageON" @close-profile-page="CloseProfilePage" />
+    <UploadPage :Opened="UploadPageON" @close-upload-page="CloseUploadPage" />
+    <div class="article-list" v-if="UploadPageON == false && ProfilePageON == false">
       <p class="post-info-text" v-if="isLoading">Loading.....</p>
       <div class="post-items" v-for="post in posts.data">
         <h1 class="post-title" @click="ReadPost(post.post_uuid)">{{ post.title }}</h1>
@@ -162,7 +188,7 @@ p {
   height: auto;
   display: flex;
   flex-direction: column;
-  animation: FadeIn 0.8s;
+  animation: FadeIn 0.5s;
   margin-right: auto;
 }
 
@@ -204,7 +230,7 @@ p {
   height: 90vh;
   display: flex;
   flex-direction: column;
-  animation: FadeIn 0.8s;
+  animation: FadeIn 0.5s;
   overflow-y: scroll;
   scrollbar-width: none;
 }
