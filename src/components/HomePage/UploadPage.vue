@@ -43,9 +43,7 @@ p {
 .upload-panel-container {
   width: 55vw;
   height: 90vh;
-  /* background-color: #ffffff; */
   animation: FadeIn 0.5s;
-  /* display: flex; */
 }
 
 .post-title {

@@ -1,6 +1,8 @@
 <script lang="ts">
 export default {
-  components: {}
+  components: {
+    
+  }
 }
 </script>
 
