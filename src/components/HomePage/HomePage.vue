@@ -5,7 +5,6 @@ import { storeToRefs } from 'pinia'
 import UploadPage from './UploadPage.vue'
 import ProfilePage from './ProfilePage.vue'
 
-
 type BlogPost = {
   id: Number
   post_uuid: String
@@ -20,7 +19,6 @@ type BlogPost = {
   update_time: Date
 }
 
-
 type UserInfo = {
   id: Number
   user_name: String
@@ -30,7 +28,6 @@ type UserInfo = {
   bio: String
   avatar: string
 }
-
 
 type PostList = BlogPost[]
 
@@ -67,7 +64,6 @@ export default {
           headers: headers
         })
         this.user_info = response.data
-      
       } catch (error) {}
     },
     ReadPost(post_uuid: String) {
@@ -81,7 +77,6 @@ export default {
       }
     },
     OpenUploadPage() {
-
       this.UploadPageON = true
       this.ProfilePageON = false
     },
@@ -95,9 +90,7 @@ export default {
     CloseProfilePage() {
       this.ProfilePageON = false
     },
-    ManageMent() {
-      
-    }
+    ManageMent() {}
   },
   setup() {
     const logStatus = AuthenticateStatus()
