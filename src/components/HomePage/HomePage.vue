@@ -64,7 +64,9 @@ export default {
           headers: headers
         })
         this.user_info = response.data
-      } catch (error) {}
+      } catch (error) {
+        console.log(error)
+      }
     },
     ReadPost(post_uuid: String) {
       this.$router.push('/posts/' + post_uuid)
@@ -152,7 +154,9 @@ export default {
         </div>
       </div>
     </div>
-    <div class="tags-list"></div>
+    <div class="tags-list">
+      <!-- Show All tags here -->
+    </div>
   </div>
 </template>
 

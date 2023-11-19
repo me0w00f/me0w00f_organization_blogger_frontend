@@ -1,4 +1,12 @@
 <script lang="ts">
+type ProfileInfo = {
+  user_name: String,
+  nick_name: String,
+  user_uuid: String,
+  avatar: string,
+  
+}
+
 export default {
   data() {
     return {}
