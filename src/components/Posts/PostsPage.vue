@@ -1,10 +1,21 @@
 <script lang="ts">
 import axios from 'axios'
 import MarkDownItHighlightjs from 'markdown-it-highlightjs'
+import CommentEditor from './CommentEditor.vue'
+type CommentData = {
+  id: Number
+  comment_uuid: String
+  post_uuid: String
+  user_uuid: String
+  nick_name: String
+  avatar: string
+  content: String
+  date: Date
+}
 
 type BlogPost = {
   id: Number
-  post_uuid: String
+  post_uuid: string
   title: String
   tags: String
   author_uuid: String
@@ -17,9 +28,7 @@ type BlogPost = {
   content: String
 }
 
-type PostComment = {
-  comment_uuid: string
-}
+type CommentDataList = CommentData[]
 
 export default {
   data() {
@@ -31,7 +40,8 @@ export default {
         {
           plugin: MarkDownItHighlightjs
         }
-      ]
+      ],
+      comments: [] as CommentData[]
     }
   },
   methods: {
@@ -45,10 +55,25 @@ export default {
       } finally {
         this.isLoading = false
       }
+    },
+    async getComment() {
+      try {
+        const response = await axios.get<CommentDataList>(
+          '/api/comments/get_in_a_post/' + this.post_uuid
+        )
+        this.comments = response.data
+        console.log(this.comments)
+      } catch (error) {
+        console.log(error)
+      }
     }
+  },
+  components: {
+    CommentEditor
   },
   beforeMount() {
     this.getThePost()
+    this.getComment()
   }
 }
 </script>
@@ -61,6 +86,23 @@ export default {
       UPDATE:{{ post_data.update_time }}
     </h2>
     <div class="content-text" v-html="post_data.content"></div>
+    <div class="CommentAera">
+      <CommentEditor :post_uuid="(post_uuid as string)" @update-comments-list="getComment"/>
+      <div class="comment-display-area" v-for="items in comments">
+        <div class="comment-item">
+          <div class="info-area">
+            <div class="avatar-area">
+              <img class="avatar" :src="items.avatar" />
+            </div>
+            <p class="user-name-text">{{ items.nick_name }}</p>
+            <p class="date-text">{{ items.date }}</p>
+          </div>
+          <div class="content-area">
+            <p class="content-text">{{ items.content }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -84,7 +126,8 @@ export default {
   font-size: 20px;
   padding-left: 30px;
   padding-top: 10px;
-  color: #212121;
+  color: var(--text-font-color);
+  text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3);
 }
 
 .post-title {
@@ -95,7 +138,9 @@ export default {
   padding-left: 20px;
   padding-top: 10px;
   cursor: pointer;
+  color: var(--text-font-color);
   transition: ease 0.5s;
+  text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3);
 }
 
 .post-title:hover {
@@ -110,5 +155,78 @@ export default {
   padding-top: 10px;
   font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght';
   font-weight: 300;
+  color: var(--text-font-sub-color);
+  text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3);
+}
+
+.CommentAera {
+  width: 100%;
+  height: auto;
+}
+
+.comment-display-area {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.comment-item {
+  width: 80%;
+  height: auto;
+  min-height: 150px;
+  display: flex;
+  flex-direction: column;
+  border-bottom: solid 1px var(--text-font-color);
+  margin-bottom: 20px;
+}
+
+.avatar-area {
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
+  margin-right: 20px;
+}
+
+.info-area {
+  flex-direction: row;
+  display: flex;
+}
+.user-name-text {
+  font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght';
+  font-size: 22px;
+  line-height: 50px;
+  text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3);
+}
+.avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
+}
+
+.date-text {
+  font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght';
+  font-size: 16px;
+  line-height: 50px;
+  color: #414141;
+  margin-left: auto;
+  text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3);
+}
+
+.content-area {
+  display: flex;
+  justify-content: first baseline;
+}
+
+.content-text {
+  font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght';
+  font-weight: 350;
+  font-size: 20px;
+  line-height: 40px;
+  color: var(--text-font-sub-color);
+  padding-left: 75px;
+  padding-right: 75px;
+  text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3);
 }
 </style>

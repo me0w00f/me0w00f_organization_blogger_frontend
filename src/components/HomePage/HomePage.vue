@@ -130,15 +130,15 @@ export default {
         {{ user_info.bio }}
       </p>
       <div class="button-container" v-if="isLogged">
-        <button class="post-upload-button" @click="OpenProfilePage">Profile</button>
-        <button class="post-upload-button" v-if="user_info.administrator" @click="OpenUploadPage">
+        <button class="buttons" @click="OpenProfilePage">Profile</button>
+        <button class="buttons" v-if="user_info.administrator" @click="OpenUploadPage">
           Post
         </button>
-        <button class="post-upload-button" v-if="user_info.administrator">Manage</button>
+        <button class="buttons" v-if="user_info.administrator">Manage</button>
       </div>
     </div>
     <ProfilePage :Opened="ProfilePageON" @close-profile-page="CloseProfilePage" />
-    <UploadPage :Opened="UploadPageON" @close-upload-page="CloseUploadPage" />
+    <UploadPage :Opened="UploadPageON" @close-upload-page="CloseUploadPage" @update-post-list="getPosts(page)"/>
     <div class="article-list" v-if="UploadPageON == false && ProfilePageON == false">
       <p class="post-info-text" v-if="isLoading">Loading.....</p>
       <div class="post-items" v-for="post in posts.data">
@@ -211,12 +211,14 @@ p {
   font-size: 25px;
   text-align: center;
   line-height: 50px;
+  text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3);
 }
 
 .bio-text {
   color: var(--text-font-color);
   font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght';
   font-size: 18px;
+  text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3);
   text-align: center;
   line-height: 25px;
   padding: 5px;
@@ -251,6 +253,7 @@ p {
   padding-top: 10px;
   cursor: pointer;
   transition: ease 0.5s;
+  text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3);
 }
 
 .post-title:hover {
@@ -263,6 +266,7 @@ p {
   line-height: 20px;
   padding-left: 30px;
   padding-top: 10px;
+  text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3);
 }
 
 .tags-list {
@@ -289,33 +293,6 @@ p {
 .posts-create {
   margin-right: 10px;
 }
-
-.post-upload-button {
-  width: 100px;
-  height: 40px;
-  outline: none;
-  border: none;
-  background-color: var(--primary-color);
-  color: #f1f1f1;
-  font-family: 'Itim Regular';
-  font-size: 20px;
-  text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
-  border-radius: 5px;
-  cursor: pointer;
-  transition: ease-in-out 200ms;
-  box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.2);
-}
-
-.post-upload-button:hover {
-  transition: ease-in-out 200ms;
-  background-color: var(--accent-color);
-}
-
-.post-upload-button:active {
-  transition: ease-in-out 200ms;
-  background-color: rgba(255, 255, 255, 0.5);
-}
-
 .button-container {
   margin-top: 15px;
   display: flex;

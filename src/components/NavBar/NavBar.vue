@@ -55,7 +55,7 @@ export default {
       <RouterLink to="/">Home</RouterLink>
       <RouterLink to="/login" v-if="isNotLogged">Login</RouterLink>
       <button id="LogOut" @click="logout" v-else>Logout</button>
-      <RouterLink to="/posts">Articles</RouterLink>
+      <!-- <RouterLink to="/posts">Articles</RouterLink> -->
       <RouterLink to="/about">About</RouterLink>
     </div>
   </div>
@@ -78,7 +78,7 @@ export default {
   color: #ffffff;
   line-height: 78px;
   padding-left: 20px;
-  text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5); /* black shadow with 2px offset and 4px blur */
+  /* text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5); black shadow with 2px offset and 4px blur */
 }
 
 .link-container-in-navbar {
@@ -93,7 +93,7 @@ export default {
   margin-left: 40px;
   line-height: 78px;
   text-decoration: none;
-  text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
+  /* text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5); */
 }
 
 .router-link-exact-active {
@@ -111,6 +111,6 @@ export default {
   border: none;
   outline: none;
   background-color: var(--primary-color);
-  text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
+  /* text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5); */
 }
 </style>

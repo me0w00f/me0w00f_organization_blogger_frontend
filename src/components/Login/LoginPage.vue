@@ -85,10 +85,10 @@ export default {
     <p class="text-in-login-page">Login to publish and manage contents.</p>
     <input class="input-in-login-page" type="text" placeholder="username" v-model="user_name" />
     <input class="input-in-login-page" type="password" placeholder="password" v-model="password" />
-    <button class="login-button-in-login-page" @click="login_request">Sign In</button>
-    <button class="login-button-in-login-page" id="sign_up" @click="switch_to_register_or_login">
-      No Account? Sign up!
-    </button>
+    <button class="buttons button-login" @click="login_request">Sign In</button>
+    <a class="swich-link" @click="switch_to_register_or_login">
+      No Account? Sign up>
+    </a>
     <p class="text-in-login-page">{{ message }}</p>
   </div>
   <div class="login-page-container" v-if="no_account">
@@ -103,10 +103,10 @@ export default {
       v-model="confirm_password"
     />
     <input class="input-in-login-page" type="text" placeholder="email" v-model="email" />
-    <button class="login-button-in-login-page" @click="register_request">Sign Up</button>
-    <button class="login-button-in-login-page" id="sign_up" @click="switch_to_register_or_login">
-      Have an account already? Sign In!
-    </button>
+    <button class="buttons button-login" @click="register_request">Sign Up</button>
+    <a class="swich-link" @click="switch_to_register_or_login">
+      Have an account already? Sign In>
+    </a>
     <p class="text-in-login-page">{{ message }}</p>
   </div>
 </template>
@@ -119,32 +119,36 @@ export default {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  animation: FadeIn 0.8s;
+  animation: FadeIn 0.5s;
 }
 
 .title-in-login-page {
-  font-family: 'Itim Regular';
-  font-size: 64px;
+  font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght';
+  font-size: 60px;
+  text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3);
   color: var(--text-font-color);
 }
 
 .text-in-login-page {
+  margin-top: 15px;
   margin-bottom: 25px;
-  font-family: 'Itim Regular';
+  font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght';
   font-size: 25px;
-  color: var(--text-font-color);
+  text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3);
+  color: var(--text-font-sub-color);
 }
 
 .input-in-login-page {
-  font-family: 'Itim Regular';
+  font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght';
   /* font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; */
   font-size: 25px;
-  outline: none;
   border: solid 1.6px var(--bottom-border-color);
   background-color: #f1f1f1;
-  margin-top: 20px;
+  margin-top: 25px;
   border-radius: 5px;
-  width: 400px;
+  width: 500px;
+  height: 50px;
+  outline: none;
   text-indent: 10px;
   padding-top: 5px;
   padding-bottom: 5px;
@@ -155,46 +159,27 @@ export default {
   border: solid 1.6px var(--accent-color);
 }
 
-.login-button-in-login-page {
-  margin-top: 20px;
-  width: 400px;
-  height: 40px;
-  outline: none;
-  background-color: var(--primary-color);
-  border: none;
-  color: #f1f1f1;
-  font-family: 'Itim Regular';
-  font-size: 20px;
-  text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
-  border-radius: 5px;
+.button-login {
+  margin-top: 25px;
+  width: 500px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  font-size: 25px;
+}
+
+.swich-link {
+  font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght';
+  font-size: 25px;
+  line-height: 80px;
   cursor: pointer;
-  transition: ease-in-out 200ms;
-  box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.2);
+  color: var(--text-font-sub-color);
+  transition: 250ms ease-out;
+  text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3);
 }
 
-.login-button-in-login-page:hover {
-  transition: ease-in-out 200ms;
-  background-color: var(--accent-color);
-}
-
-.login-button-in-login-page:active {
-  transition: ease-in-out 200ms;
-  background-color: rgba(255, 255, 255, 0.5);
-}
-
-#sign_up {
-  background-color: #ebebeb;
-  text-shadow: none;
-  color: var(--text-font-color);
-}
-
-#sign_up:hover {
-  transition: ease-in-out 200ms;
-  background-color: var(--accent-color);
-}
-
-#sign_up:active {
-  transition: ease-in-out 200ms;
-  background-color: rgba(255, 255, 255, 0.5);
-}
+.swich-link:hover {
+  color: var(--accent-color);
+  filter: brightness(0.95);
+  transition: 250ms ease-out;
+} 
 </style>
