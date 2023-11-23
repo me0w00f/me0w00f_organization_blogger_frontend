@@ -57,12 +57,12 @@ export default {
     },
     async getUserInfo() {
       try {
-        const headers = {
-          Authorization: 'Bearer ' + localStorage.getItem('token')
+        const config = {
+          headers: {
+            Authorization: 'Bearer ' + localStorage.getItem('token')
+          }
         }
-        const response = await axios.get<UserInfo>('/api/resources/user_info/get', {
-          headers: headers
-        })
+        const response = await axios.get<UserInfo>('/api/resources/user_info/get', config)
         this.user_info = response.data
       } catch (error) {
         console.log(error)
@@ -131,14 +131,16 @@ export default {
       </p>
       <div class="button-container" v-if="isLogged">
         <button class="buttons" @click="OpenProfilePage">Profile</button>
-        <button class="buttons" v-if="user_info.administrator" @click="OpenUploadPage">
-          Post
-        </button>
+        <button class="buttons" v-if="user_info.administrator" @click="OpenUploadPage">Post</button>
         <button class="buttons" v-if="user_info.administrator">Manage</button>
       </div>
     </div>
     <ProfilePage :Opened="ProfilePageON" @close-profile-page="CloseProfilePage" />
-    <UploadPage :Opened="UploadPageON" @close-upload-page="CloseUploadPage" @update-post-list="getPosts(page)"/>
+    <UploadPage
+      :Opened="UploadPageON"
+      @close-upload-page="CloseUploadPage"
+      @update-post-list="getPosts(page)"
+    />
     <div class="article-list" v-if="UploadPageON == false && ProfilePageON == false">
       <p class="post-info-text" v-if="isLoading">Loading.....</p>
       <div class="post-items" v-for="post in posts.data">
@@ -162,14 +164,14 @@ export default {
 
 <style scoped>
 h1 {
-  font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght';
+  font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght', system-ui, sans;
   font-weight: 450;
   color: var(--text-font-color);
 }
 
 p {
   color: var(--text-font-color);
-  font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght';
+  font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght', system-ui, sans;
 }
 
 .home-page-container {
@@ -207,7 +209,7 @@ p {
 
 .user-name-text {
   color: var(--text-font-color);
-  font-family: 'Mooli-Regular';
+  font-family: 'Mooli-Regular', system-ui, sans;
   font-size: 25px;
   text-align: center;
   line-height: 50px;
@@ -216,7 +218,7 @@ p {
 
 .bio-text {
   color: var(--text-font-color);
-  font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght';
+  font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght', system-ui, sans;
   font-size: 18px;
   text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3);
   text-align: center;

@@ -87,7 +87,7 @@ export default {
     </h2>
     <div class="content-text" v-html="post_data.content"></div>
     <div class="CommentAera">
-      <CommentEditor :post_uuid="(post_uuid as string)" @update-comments-list="getComment"/>
+      <CommentEditor :post_uuid="post_uuid as string" @update-comments-list="getComment" />
       <div class="comment-display-area" v-for="items in comments">
         <div class="comment-item">
           <div class="info-area">
@@ -120,7 +120,7 @@ export default {
 }
 
 .content-text {
-  font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght';
+  font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght', system-ui, sans;
   font-weight: 325;
   line-height: 60px;
   font-size: 20px;
@@ -131,7 +131,7 @@ export default {
 }
 
 .post-title {
-  font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght';
+  font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght', system-ui, sans;
   font-weight: 400;
   font-size: 50px;
   line-height: 80px;
@@ -153,7 +153,7 @@ export default {
   line-height: 80px;
   padding-left: 30px;
   padding-top: 10px;
-  font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght';
+  font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght', system-ui, sans;
   font-weight: 300;
   color: var(--text-font-sub-color);
   text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3);
@@ -194,7 +194,7 @@ export default {
   display: flex;
 }
 .user-name-text {
-  font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght';
+  font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght', system-ui, sans;
   font-size: 22px;
   line-height: 50px;
   text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3);
@@ -206,7 +206,7 @@ export default {
 }
 
 .date-text {
-  font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght';
+  font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght', system-ui, sans;
   font-size: 16px;
   line-height: 50px;
   color: #414141;
@@ -220,7 +220,7 @@ export default {
 }
 
 .content-text {
-  font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght';
+  font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght', system-ui, sans;
   font-weight: 350;
   font-size: 20px;
   line-height: 40px;

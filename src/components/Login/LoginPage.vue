@@ -86,9 +86,7 @@ export default {
     <input class="input-in-login-page" type="text" placeholder="username" v-model="user_name" />
     <input class="input-in-login-page" type="password" placeholder="password" v-model="password" />
     <button class="buttons button-login" @click="login_request">Sign In</button>
-    <a class="swich-link" @click="switch_to_register_or_login">
-      No Account? Sign up>
-    </a>
+    <a class="swich-link" @click="switch_to_register_or_login"> No Account? Sign up> </a>
     <p class="text-in-login-page">{{ message }}</p>
   </div>
   <div class="login-page-container" v-if="no_account">
@@ -123,7 +121,7 @@ export default {
 }
 
 .title-in-login-page {
-  font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght';
+  font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght', system-ui, sans;
   font-size: 60px;
   text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3);
   color: var(--text-font-color);
@@ -132,14 +130,14 @@ export default {
 .text-in-login-page {
   margin-top: 15px;
   margin-bottom: 25px;
-  font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght';
+  font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght', system-ui, sans;
   font-size: 25px;
   text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3);
   color: var(--text-font-sub-color);
 }
 
 .input-in-login-page {
-  font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght';
+  font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght', system-ui, sans;
   /* font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; */
   font-size: 25px;
   border: solid 1.6px var(--bottom-border-color);
@@ -168,7 +166,7 @@ export default {
 }
 
 .swich-link {
-  font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght';
+  font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght', system-ui, sans;
   font-size: 25px;
   line-height: 80px;
   cursor: pointer;
@@ -181,5 +179,5 @@ export default {
   color: var(--accent-color);
   filter: brightness(0.95);
   transition: 250ms ease-out;
-} 
+}
 </style>

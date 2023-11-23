@@ -108,7 +108,7 @@ export default {
   resize: none;
   margin: 0 auto;
   font-size: 18px;
-  font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght';
+  font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght', system-ui, sans;
   border: none;
   border-bottom: solid 2px #212121;
   outline: none;
@@ -147,7 +147,7 @@ export default {
 
 .user-name-text {
   color: var(--text-font-color);
-  font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght';
+  font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght', system-ui, sans;
   font-size: 22px;
   line-height: 50px;
   text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3);

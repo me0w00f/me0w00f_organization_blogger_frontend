@@ -2,6 +2,12 @@
 // UploadPage.vue
 import axios, { formToJSON } from 'axios'
 
+type Categories = {
+  id: Number
+  category_name: String
+  datetime: Date
+}
+
 export default {
   data() {
     return {
@@ -10,7 +16,8 @@ export default {
       category_id: '',
       post_file: null,
       allow_comment: true,
-      response_message: ''
+      response_message: '',
+      categories: {} as Categories
     }
   },
   props: {
@@ -63,14 +70,23 @@ export default {
         this.response_message = 'Please finish the form, all the input can not be empty!'
       }
     },
-    GetAllCategories() {
-      // Get all the categories and the id to render a list.
+    async GetAllCategories() {
+      try {
+        const response = await axios.get<Categories>('/api/posts/categories/getAll')
+        this.categories = response.data
+        // console.log(this.categories)
+      } catch (error) {
+        console.log(error)
+      }
     },
     LoadPostFile(event: any) {
       this.post_file = event.target.files
       console.log(this.post_file)
       console.log(this.allow_comment)
     }
+  },
+  mounted() {
+    this.GetAllCategories()
   }
 }
 </script>
@@ -81,6 +97,7 @@ export default {
       <input class="form-input" type="text" placeholder="Title" v-model="posts_title" />
       <input class="form-input" type="text" placeholder="Tags" v-model="tags" />
       <input class="form-input" type="text" placeholder="Category" v-model="category_id" />
+      <table></table>
       <p class="check-box-text">
         <input class="check-box" type="checkbox" v-model="allow_comment" /> Allow Comments
       </p>
@@ -96,7 +113,7 @@ export default {
 
 <style scoped>
 h1 {
-  font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght';
+  font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght', system-ui, sans;
   font-weight: 450;
   color: var(--text-font-color);
   text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3);
@@ -104,7 +121,7 @@ h1 {
 
 p {
   color: var(--text-font-color);
-  font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght';
+  font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght', system-ui, sans;
   text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3);
 }
 .upload-panel-container {
@@ -132,7 +149,7 @@ p {
 }
 
 .form-input {
-  font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght';
+  font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght', system-ui, sans;
   font-size: 18px;
   line-height: 40px;
   border: none;

@@ -73,7 +73,7 @@ export default {
 }
 
 .main-title-in-navbar {
-  font-family: 'Itim Regular';
+  font-family: 'Itim Regular', system-ui, sans;
   font-size: 28px;
   color: #ffffff;
   line-height: 78px;
@@ -87,7 +87,7 @@ export default {
   margin-right: 20px;
 }
 .link-container-in-navbar a {
-  font-family: 'Itim Regular';
+  font-family: 'Itim Regular', system-ui, sans;
   font-size: 25px;
   color: #ffffff;
   margin-left: 40px;
@@ -101,7 +101,7 @@ export default {
 }
 
 #LogOut {
-  font-family: 'Itim Regular';
+  font-family: 'Itim Regular', system-ui, sans;
   font-size: 25px;
   color: #ffffff;
   margin-right: auto;
