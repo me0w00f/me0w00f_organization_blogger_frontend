@@ -1,5 +1,7 @@
 <script lang="ts">
 import axios from 'axios'
+import { AuthenticateStatus } from '@/stores/authentication_status'
+import { storeToRefs } from 'pinia'
 import MarkDownItHighlightjs from 'markdown-it-highlightjs'
 import CommentEditor from './CommentEditor.vue'
 type CommentData = {
@@ -41,7 +43,8 @@ export default {
           plugin: MarkDownItHighlightjs
         }
       ],
-      comments: [] as CommentData[]
+      comments: [] as CommentData[],
+      comment_allow: false
     }
   },
   methods: {
@@ -66,10 +69,34 @@ export default {
       } catch (error) {
         console.log(error)
       }
+    },
+    CheckLoggingStatus() {
+      if(this.logStatus.isLogged) {
+        this.comment_allow = true;
+      } else {
+        this.comment_allow = false;
+      }
     }
   },
   components: {
     CommentEditor
+  },
+  setup() {
+    const logStatus = AuthenticateStatus()
+    const UpdateLogStatus = storeToRefs(logStatus)
+
+    return {
+      UpdateLogStatus,
+      logStatus
+    }
+  },
+  watch: {
+    'logStatus.isLogged'(newValue, oldValue) {
+      this.CheckLoggingStatus()
+    }
+  },
+  mounted() {
+    this.CheckLoggingStatus()  
   },
   beforeMount() {
     this.getThePost()
@@ -87,7 +114,7 @@ export default {
     </h2>
     <div class="content-text" v-html="post_data.content"></div>
     <div class="CommentAera">
-      <CommentEditor :post_uuid="post_uuid as string" @update-comments-list="getComment" />
+      <CommentEditor v-if="comment_allow" :post_uuid="post_uuid as string" @update-comments-list="getComment" />
       <div class="comment-display-area" v-for="items in comments">
         <div class="comment-item">
           <div class="info-area">
@@ -165,6 +192,7 @@ export default {
 }
 
 .comment-display-area {
+  margin-top: 30px;
   width: 100%;
   height: auto;
   display: flex;
