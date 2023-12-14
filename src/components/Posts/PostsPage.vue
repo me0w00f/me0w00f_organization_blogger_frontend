@@ -71,10 +71,10 @@ export default {
       }
     },
     CheckLoggingStatus() {
-      if(this.logStatus.isLogged) {
-        this.comment_allow = true;
+      if (this.logStatus.isLogged) {
+        this.comment_allow = true
       } else {
-        this.comment_allow = false;
+        this.comment_allow = false
       }
     }
   },
@@ -96,7 +96,7 @@ export default {
     }
   },
   mounted() {
-    this.CheckLoggingStatus()  
+    this.CheckLoggingStatus()
   },
   beforeMount() {
     this.getThePost()
@@ -114,7 +114,11 @@ export default {
     </h2>
     <div class="content-text" v-html="post_data.content"></div>
     <div class="CommentAera">
-      <CommentEditor v-if="comment_allow" :post_uuid="post_uuid as string" @update-comments-list="getComment" />
+      <CommentEditor
+        v-if="comment_allow"
+        :post_uuid="post_uuid as string"
+        @update-comments-list="getComment"
+      />
       <div class="comment-display-area" v-for="items in comments">
         <div class="comment-item">
           <div class="info-area">
