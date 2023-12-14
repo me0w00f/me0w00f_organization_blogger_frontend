@@ -135,7 +135,11 @@ export default {
         <button class="buttons" v-if="user_info.administrator">Manage</button>
       </div>
     </div>
-    <ProfilePage :Opened="ProfilePageON" @close-profile-page="CloseProfilePage" />
+    <ProfilePage
+      :Opened="ProfilePageON"
+      @close-profile-page="CloseProfilePage"
+      @reload-profile="getUserInfo"
+    />
     <UploadPage
       :Opened="UploadPageON"
       @close-upload-page="CloseUploadPage"

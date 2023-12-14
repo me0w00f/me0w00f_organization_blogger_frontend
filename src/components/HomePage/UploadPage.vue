@@ -56,7 +56,7 @@ export default {
           data.append('tags', this.tags)
           data.append('category_id', this.category_id)
           data.append('comment', allow_comment)
-          data.append('content_file', this.post_file[0])
+          data.append('content_file', this.post_file)
           const response = await axios.post('/api/posts/create', data, config)
           if (response.data.Status == 'Success!') {
             this.$emit('update-post-list')
@@ -80,7 +80,7 @@ export default {
       }
     },
     LoadPostFile(event: any) {
-      this.post_file = event.target.files
+      this.post_file = event.target.files[0]
       console.log(this.post_file)
       console.log(this.allow_comment)
     }

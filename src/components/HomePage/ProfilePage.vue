@@ -1,5 +1,6 @@
 <script lang="ts">
 import axios from 'axios'
+import { updateSourceFile } from 'typescript'
 
 type UserInfo = {
   id: Number
@@ -43,6 +44,50 @@ export default {
       } catch (error) {
         console.log(error)
       }
+    },
+    async updateUserInfo() {
+      const token = localStorage.getItem('token')
+      const config = {
+        headers: {
+          Authorization: 'Bearer ' + token
+        }
+      }
+      const new_user_info = {
+        nick_name: this.nick_name,
+        description: this.description
+      }
+      const response = await axios.put('/api/user/info/modify', new_user_info, config)
+      if (response.data.Status == 'Success!') {
+        this.$emit('reload-profile')
+        this.getOriginalProfile()
+      }
+    },
+    async setUserAvatar() {
+      const data = new FormData()
+      const token = localStorage.getItem('token')
+      const confg = {
+        headers: {
+          Authorization: 'Bearer ' + token,
+          'Content-type': 'multipart/form-data'
+        }
+      }
+      if (this.avatar_file != null) {
+        data.append('avatar_file', this.avatar_file)
+        const response = await axios.post('/api/user/avatar/set', data, confg)
+        if (response.data.Status == 'Success!') {
+          this.$emit('reload-profile')
+        }
+      } else {
+        console.log('Unable to set your avatar with an empty file.')
+      }
+    },
+    LoadAvatarFile(event: any) {
+      this.avatar_file = event.target.files[0]
+      console.log(this.avatar_file)
+    },
+    submitForm() {
+      this.updateUserInfo()
+      this.setUserAvatar()
     }
   },
   mounted() {
@@ -55,7 +100,7 @@ export default {
     <h1 class="profile-title">Profile</h1>
     <div class="form-avatar-change">
       <p class="profile-text">Change your avatar.</p>
-      <input type="file" />
+      <input type="file" @change="LoadAvatarFile" />
     </div>
     <div class="form-nick-name-and-description-change">
       <p class="profile-text">Edit your nick name</p>
@@ -64,7 +109,7 @@ export default {
       <input class="form-input" type="text" v-model="description" />
     </div>
     <div class="button-container">
-      <button class="buttons button-profile">Submit</button>
+      <button class="buttons button-profile" @click="submitForm">Submit</button>
       <button class="buttons button-profile" @click="ClosePage">close</button>
     </div>
   </div>
