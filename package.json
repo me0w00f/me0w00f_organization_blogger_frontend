@@ -23,6 +23,8 @@
     "markdown-it-anchor": "^8.6.7",
     "markdown-it-highlightjs": "^4.0.1",
     "markdown-it-mark": "^3.0.1",
+    "moment": "^2.29.4",
+    "moment-timezone": "^0.5.43",
     "pinia": "^2.1.6",
     "vue": "^3.3.4",
     "vue-router": "^4.2.4"

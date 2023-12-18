@@ -4,6 +4,7 @@ import { AuthenticateStatus } from '@/stores/authentication_status'
 import { storeToRefs } from 'pinia'
 import UploadPage from './UploadPage.vue'
 import ProfilePage from './ProfilePage.vue'
+import moment from 'moment-timezone'
 
 type BlogPost = {
   id: Number
@@ -92,7 +93,12 @@ export default {
     CloseProfilePage() {
       this.ProfilePageON = false
     },
-    ManageMent() {}
+    ManageMent() {},
+    ChangeTimeZone(date: Date){
+      const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone
+      const date_to_return = moment.utc(date).tz(timezone).format('YYYY-MM-DD HH:mm')
+      return date_to_return
+    }
   },
   setup() {
     const logStatus = AuthenticateStatus()
@@ -155,8 +161,8 @@ export default {
           <p class="post-info-text">{{ post.tags }}</p>
         </div>
         <div class="foot-control">
-          <p class="post-info-text posts-update">{{ post.update_time }}</p>
-          <p class="post-info-text posts-create">{{ post.create_time }}</p>
+          <p class="post-info-text posts-update">{{ ChangeTimeZone(post.update_time) }}</p>
+          <p class="post-info-text posts-create">{{ ChangeTimeZone(post.create_time) }}</p>
         </div>
       </div>
     </div>

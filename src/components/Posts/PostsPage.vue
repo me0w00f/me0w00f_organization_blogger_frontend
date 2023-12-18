@@ -4,6 +4,8 @@ import { AuthenticateStatus } from '@/stores/authentication_status'
 import { storeToRefs } from 'pinia'
 import MarkDownItHighlightjs from 'markdown-it-highlightjs'
 import CommentEditor from './CommentEditor.vue'
+import moment from 'moment-timezone'
+
 type CommentData = {
   id: Number
   comment_uuid: String
@@ -76,6 +78,11 @@ export default {
       } else {
         this.comment_allow = false
       }
+    },
+    ChangeTimeZone(date: Date){
+      const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone
+      const date_to_return = moment.utc(date).tz(timezone).format('YYYY-MM-DD HH:mm')
+      return date_to_return
     }
   },
   components: {
@@ -109,8 +116,8 @@ export default {
   <div class="posts-page-container">
     <h1 class="post-title">{{ post_data.title }}</h1>
     <h2 class="post-info-text">
-      {{ post_data.author }} | {{ post_data.category }} | CREATE:{{ post_data.create_time }} |
-      UPDATE:{{ post_data.update_time }}
+      {{ post_data.author }} | {{ post_data.category }} | CREATE:{{ ChangeTimeZone(post_data.create_time) }} |
+      UPDATE:{{ ChangeTimeZone(post_data.update_time) }}
     </h2>
     <div class="content-text" v-html="post_data.content"></div>
     <div class="CommentAera">
@@ -126,7 +133,7 @@ export default {
               <img class="avatar" :src="items.avatar" />
             </div>
             <p class="user-name-text">{{ items.nick_name }}</p>
-            <p class="date-text">{{ items.date }}</p>
+            <p class="date-text">{{ ChangeTimeZone(items.date) }}</p>
           </div>
           <div class="content-area">
             <p class="content-text">{{ items.content }}</p>

@@ -1,6 +1,5 @@
 <script lang="ts">
 import axios from 'axios'
-import { updateSourceFile } from 'typescript'
 
 type UserInfo = {
   id: Number
