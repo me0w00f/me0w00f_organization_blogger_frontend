@@ -123,7 +123,7 @@ export default {
 .title-in-login-page {
   font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght', system-ui, sans;
   font-size: 60px;
-  text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3);
+  /* text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3);  */
   color: var(--text-font-color);
 }
 
@@ -132,7 +132,7 @@ export default {
   margin-bottom: 25px;
   font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght', system-ui, sans;
   font-size: 25px;
-  text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3);
+  /* text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3); */
   color: var(--text-font-sub-color);
 }
 
@@ -172,7 +172,7 @@ export default {
   cursor: pointer;
   color: var(--text-font-sub-color);
   transition: 250ms ease-out;
-  text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3);
+  /* text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3); */
 }
 
 .swich-link:hover {

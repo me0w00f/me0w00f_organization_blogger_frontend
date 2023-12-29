@@ -114,7 +114,7 @@ export default {
   outline: none;
   padding: 10px;
   transition: ease-out 250ms;
-  text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3);
+  /* text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3); */
 }
 
 .editor-area:focus {
@@ -150,7 +150,7 @@ export default {
   font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght', system-ui, sans;
   font-size: 22px;
   line-height: 50px;
-  text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3);
+  /* text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3); */
 }
 
 .comment-words {

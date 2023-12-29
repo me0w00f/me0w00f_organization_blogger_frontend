@@ -118,13 +118,13 @@ h1 {
   font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght', system-ui, sans;
   font-weight: 450;
   color: var(--text-font-color);
-  text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3);
+  /* text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3); */
 }
 
 p {
   color: var(--text-font-color);
   font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght', system-ui, sans;
-  text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3);
+  /* text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3); */
 }
 .profile-container {
   width: 55vw;
@@ -140,7 +140,7 @@ p {
   cursor: pointer;
   color: var(--text-font-color);
   transition: ease 0.5s;
-  text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3);
+  /* text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3); */
 }
 
 .form-avatar-change {
@@ -171,7 +171,7 @@ p {
   outline: none;
   margin-bottom: 15px;
   transition: ease-out 250ms;
-  text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3);
+  /* text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3); */
 }
 
 .form-input:focus {

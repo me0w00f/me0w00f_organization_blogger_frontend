@@ -41,7 +41,8 @@ export default {
       user_info: {} as UserInfo,
       isLogged: false,
       UploadPageON: false,
-      ProfilePageON: false
+      ProfilePageON: false,
+      ManagePageON: false
     }
   },
   methods: {
@@ -82,6 +83,7 @@ export default {
     OpenUploadPage() {
       this.UploadPageON = true
       this.ProfilePageON = false
+      this.ManagePageON = false
     },
     CloseUploadPage() {
       this.UploadPageON = false
@@ -89,12 +91,17 @@ export default {
     OpenProfilePage() {
       this.ProfilePageON = true
       this.UploadPageON = false
+      this.ManagePageON = false
     },
     CloseProfilePage() {
       this.ProfilePageON = false
     },
-    ManageMent() {},
-    ChangeTimeZone(date: Date){
+    OpenManagePage() {
+      this.ManagePageON = true
+      this.UploadPageON = false
+      this.ProfilePageON = false
+    },
+    ChangeTimeZone(date: Date) {
       const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone
       const date_to_return = moment.utc(date).tz(timezone).format('YYYY-MM-DD HH:mm')
       return date_to_return
@@ -161,8 +168,8 @@ export default {
           <p class="post-info-text">{{ post.tags }}</p>
         </div>
         <div class="foot-control">
-          <p class="post-info-text posts-update">{{ ChangeTimeZone(post.update_time) }}</p>
-          <p class="post-info-text posts-create">{{ ChangeTimeZone(post.create_time) }}</p>
+          <!-- <p class="post-info-text posts-update">updated {{ calculateTimeAgo(post.update_time) }}</p> -->
+          <p class="post-info-text posts-create"> {{ ChangeTimeZone(post.create_time) }} </p>
         </div>
       </div>
     </div>
@@ -223,14 +230,14 @@ p {
   font-size: 25px;
   text-align: center;
   line-height: 50px;
-  text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3);
+  /* text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3); */
 }
 
 .bio-text {
   color: var(--text-font-color);
   font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght', system-ui, sans;
   font-size: 18px;
-  text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3);
+  /* text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3); */
   text-align: center;
   line-height: 25px;
   padding: 5px;
@@ -265,7 +272,7 @@ p {
   padding-top: 10px;
   cursor: pointer;
   transition: ease 0.5s;
-  text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3);
+  /* text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3); */
 }
 
 .post-title:hover {
@@ -278,7 +285,7 @@ p {
   line-height: 20px;
   padding-left: 30px;
   padding-top: 10px;
-  text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3);
+  /* text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3); */
 }
 
 .tags-list {
@@ -298,11 +305,12 @@ p {
   flex-direction: row;
 }
 
-.posts-update {
-  margin-left: auto;
-}
+/* .posts-update {
+  
+} */
 
 .posts-create {
+  margin-left: auto;
   margin-right: 10px;
 }
 .button-container {

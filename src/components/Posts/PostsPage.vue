@@ -79,10 +79,54 @@ export default {
         this.comment_allow = false
       }
     },
-    ChangeTimeZone(date: Date){
+    ChangeTimeZone(date: Date) {
       const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone
       const date_to_return = moment.utc(date).tz(timezone).format('YYYY-MM-DD HH:mm')
       return date_to_return
+    },
+    calculateTimeAgo(date: moment.MomentInput) {
+      const now = moment()
+      const postDate = moment(date)
+      const diffSeconds = now.diff(postDate, 'seconds')
+
+      if (diffSeconds < 60) {
+        return diffSeconds <= 1 ? 'just now' : `${diffSeconds} seconds ago`
+      } else {
+        const diffMinutes = now.diff(postDate, 'minutes')
+
+        if (diffMinutes < 60) {
+          return `${diffMinutes} minute${diffMinutes > 1 ? 's' : ''} ago`
+        } else {
+          const diffHours = now.diff(postDate, 'hours')
+
+          if (diffHours < 24) {
+            return `${diffHours} hour${diffHours > 1 ? 's' : ''} ago`
+          } else {
+            const diffDays = now.diff(postDate, 'days')
+
+            if (diffDays < 7) {
+              return `${diffDays} day${diffDays > 1 ? 's' : ''} ago`
+            } else {
+              const diffWeeks = now.diff(postDate, 'weeks')
+
+              if (diffWeeks < 4) {
+                return `${diffWeeks} week${diffWeeks > 1 ? 's' : ''} ago`
+              } else {
+                const diffMonths = now.diff(postDate, 'months')
+
+                if (diffMonths < 12) {
+                  return `${diffMonths} month${diffMonths > 1 ? 's' : ''} ago`
+                } else {
+                  const diffYears = now.diff(postDate, 'years')
+                  return diffYears >= 10
+                    ? 'over 10 years ago'
+                    : `${diffYears} year${diffYears > 1 ? 's' : ''} ago`
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   components: {
@@ -116,8 +160,9 @@ export default {
   <div class="posts-page-container">
     <h1 class="post-title">{{ post_data.title }}</h1>
     <h2 class="post-info-text">
-      {{ post_data.author }} | {{ post_data.category }} | CREATE:{{ ChangeTimeZone(post_data.create_time) }} |
-      UPDATE:{{ ChangeTimeZone(post_data.update_time) }}
+      {{ post_data.author }} | {{ post_data.category }} | CREATE:
+      {{ ChangeTimeZone(post_data.create_time) }} | UPDATE:
+      {{ calculateTimeAgo(ChangeTimeZone(post_data.update_time)) }}
     </h2>
     <div class="content-text" v-html="post_data.content"></div>
     <div class="CommentAera">
@@ -133,10 +178,10 @@ export default {
               <img class="avatar" :src="items.avatar" />
             </div>
             <p class="user-name-text">{{ items.nick_name }}</p>
-            <p class="date-text">{{ ChangeTimeZone(items.date) }}</p>
+            <p class="date-text">{{ calculateTimeAgo(ChangeTimeZone(items.date)) }}</p>
           </div>
           <div class="content-area">
-            <p class="content-text">{{ items.content }}</p>
+            <p class="content-text-comment">{{ items.content }}</p>
           </div>
         </div>
       </div>
@@ -160,12 +205,13 @@ export default {
 .content-text {
   font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght', system-ui, sans;
   font-weight: 325;
-  line-height: 60px;
   font-size: 20px;
-  padding-left: 30px;
+  padding-left: 100px;
+  padding-right: 100px;
   padding-top: 10px;
   color: var(--text-font-color);
-  text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3);
+  line-height: 50px;
+  /* text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3); */
 }
 
 .post-title {
@@ -173,12 +219,13 @@ export default {
   font-weight: 400;
   font-size: 50px;
   line-height: 80px;
-  padding-left: 20px;
-  padding-top: 10px;
+  padding-left: 100px;
+  padding-top: 30px;
+  padding-bottom: 30px;
   cursor: pointer;
   color: var(--text-font-color);
   transition: ease 0.5s;
-  text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3);
+  /* text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3); */
 }
 
 .post-title:hover {
@@ -188,13 +235,13 @@ export default {
 
 .post-info-text {
   font-size: 18px;
-  line-height: 80px;
-  padding-left: 30px;
+  line-height: 30px;
+  padding-left: 100px;
   padding-top: 10px;
   font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght', system-ui, sans;
   font-weight: 300;
   color: var(--text-font-sub-color);
-  text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3);
+  /* text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3); */
 }
 
 .CommentAera {
@@ -217,7 +264,7 @@ export default {
   min-height: 150px;
   display: flex;
   flex-direction: column;
-  border-bottom: solid 1px var(--text-font-color);
+  /* border-bottom: solid 1px var(--text-font-color); */
   margin-bottom: 20px;
 }
 
@@ -236,7 +283,7 @@ export default {
   font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght', system-ui, sans;
   font-size: 22px;
   line-height: 50px;
-  text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3);
+  /* text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3); */
 }
 .avatar {
   width: 50px;
@@ -250,7 +297,7 @@ export default {
   line-height: 50px;
   color: #414141;
   margin-left: auto;
-  text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3);
+  /* text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3); */
 }
 
 .content-area {
@@ -258,14 +305,15 @@ export default {
   justify-content: first baseline;
 }
 
-.content-text {
+.content-text-comment {
   font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght', system-ui, sans;
   font-weight: 350;
   font-size: 20px;
-  line-height: 40px;
+  line-height: 30px;
   color: var(--text-font-sub-color);
   padding-left: 75px;
   padding-right: 75px;
-  text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3);
+  /* text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3); */
+  white-space: pre-wrap;
 }
 </style>

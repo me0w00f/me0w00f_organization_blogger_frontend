@@ -66,7 +66,7 @@ export default {
   background-color: var(--primary-color);
   width: 100%;
   height: 78px;
-  box-shadow: 0px 1.5px 5px var(--bottom-border-color);
+  /* box-shadow: 0px 1.5px 5px var(--bottom-border-color); */
   /* border-bottom: solid 4px var(--bottom-border-color); */
   display: flex;
   flex-direction: row;

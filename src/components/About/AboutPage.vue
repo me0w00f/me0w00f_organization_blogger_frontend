@@ -1,5 +1,11 @@
 <script lang="ts">
+
 export default {
+  data() {
+      return {
+        
+      }
+  },
   components: {
     
   }
@@ -8,8 +14,9 @@ export default {
 
 <template>
   <div class="about-page-container">
-    <img class="logo-bar" src="../../assets/icons/logo-no-background.png" />
-    <h1 class="title-in-about-page">About Us</h1>
+    <h1 class="title-in-about-page">About</h1>
+    <img class="logo-bar" src="../../assets/icons/logo-color.png" />
+    <p class="about-page-text-font">Cloud service provided by Me0W00f Cloud.</p>
   </div>
 </template>
 
@@ -33,5 +40,15 @@ export default {
   font-family: 'Itim Regular';
   font-size: 32px;
   color: var(--text-font-color);
+  line-height: 60px;
+}
+
+.about-page-text-font {
+  font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght', system-ui, sans;
+  color: var(--text-font-color);
+  font-size: 18px;
+  padding-left: 30px;
+  padding-right: 30px;
+  line-height: 25px;
 }
 </style>

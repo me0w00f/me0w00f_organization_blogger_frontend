@@ -1,6 +1,6 @@
 <script lang="ts">
 // UploadPage.vue
-import axios, { formToJSON } from 'axios'
+import axios from 'axios'
 
 type Categories = {
   id: Number
@@ -116,13 +116,13 @@ h1 {
   font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght', system-ui, sans;
   font-weight: 450;
   color: var(--text-font-color);
-  text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3);
+  /* text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3); */
 }
 
 p {
   color: var(--text-font-color);
   font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght', system-ui, sans;
-  text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3);
+  /* text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3); */
 }
 .upload-panel-container {
   width: 55vw;
@@ -137,7 +137,7 @@ p {
   padding-top: 10px;
   transition: ease 0.5s;
   color: var(--text-font-color);
-  text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3);
+  /* text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3); */
 }
 
 .from-box {
@@ -157,7 +157,7 @@ p {
   outline: none;
   margin-bottom: 15px;
   transition: ease-out 250ms;
-  text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3);
+  /* text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3); */
 }
 
 .form-input:focus {
@@ -180,7 +180,7 @@ p {
   font-size: 18px;
   line-height: 50px;
   padding: 10px;
-  text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3);
+  /* text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3); */
 }
 
 .check-box {
@@ -192,6 +192,6 @@ p {
 .response-message {
   font-size: 18px;
   line-height: 50px;
-  text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3);
+  /* text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3); */
 }
 </style>
