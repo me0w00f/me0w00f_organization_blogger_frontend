@@ -4,7 +4,9 @@ import { AuthenticateStatus } from '@/stores/authentication_status'
 import { storeToRefs } from 'pinia'
 import UploadPage from './UploadPage.vue'
 import ProfilePage from './ProfilePage.vue'
+import ManagementPage from '../Management/ManagementPage.vue'
 import moment from 'moment-timezone'
+
 
 type BlogPost = {
   id: Number
@@ -101,6 +103,9 @@ export default {
       this.UploadPageON = false
       this.ProfilePageON = false
     },
+    CloseManagePage(){
+      this.ManagePageON = false
+    },
     ChangeTimeZone(date: Date) {
       const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone
       const date_to_return = moment.utc(date).tz(timezone).format('YYYY-MM-DD HH:mm')
@@ -127,7 +132,8 @@ export default {
   },
   components: {
     UploadPage,
-    ProfilePage
+    ProfilePage,
+    ManagementPage
   }
 }
 </script>
@@ -145,9 +151,10 @@ export default {
       <div class="button-container" v-if="isLogged">
         <button class="buttons" @click="OpenProfilePage">Profile</button>
         <button class="buttons" v-if="user_info.administrator" @click="OpenUploadPage">Post</button>
-        <button class="buttons" v-if="user_info.administrator">Manage</button>
+        <button class="buttons" v-if="user_info.administrator" @click="OpenManagePage">Manage</button>
       </div>
     </div>
+
     <ProfilePage
       :Opened="ProfilePageON"
       @close-profile-page="CloseProfilePage"
@@ -158,7 +165,12 @@ export default {
       @close-upload-page="CloseUploadPage"
       @update-post-list="getPosts(page)"
     />
-    <div class="article-list" v-if="UploadPageON == false && ProfilePageON == false">
+    <ManagementPage 
+    :Opened="ManagePageON" 
+    @close-management-page="CloseManagePage" 
+    />
+    
+    <div class="article-list" v-if="UploadPageON == false && ProfilePageON == false && ManagePageON == false">
       <p class="post-info-text" v-if="isLoading">Loading.....</p>
       <div class="post-items" v-for="post in posts.data">
         <h1 class="post-title" @click="ReadPost(post.post_uuid)">{{ post.title }}</h1>
@@ -169,7 +181,7 @@ export default {
         </div>
         <div class="foot-control">
           <!-- <p class="post-info-text posts-update">updated {{ calculateTimeAgo(post.update_time) }}</p> -->
-          <p class="post-info-text posts-create"> {{ ChangeTimeZone(post.create_time) }} </p>
+          <p class="post-info-text posts-create">{{ ChangeTimeZone(post.create_time) }}</p>
         </div>
       </div>
     </div>

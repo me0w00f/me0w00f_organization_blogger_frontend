@@ -171,8 +171,8 @@ export default {
         :post_uuid="post_uuid as string"
         @update-comments-list="getComment"
       />
-      <div class="comment-display-area" v-for="items in comments">
-        <div class="comment-item">
+      <div class="comment-display-area" v-for="items in comments" :id="(items.comment_uuid as string)">
+        <div class="comment-item" >
           <div class="info-area">
             <div class="avatar-area">
               <img class="avatar" :src="items.avatar" />

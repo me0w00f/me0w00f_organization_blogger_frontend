@@ -83,7 +83,7 @@ export default {
         {{ 1500 - comment.length }}
       </p>
       <p class="user-name-text comment-words comment-words-over" v-if="comment.length > 1500">
-        {{ 1500 - comment.length }} 
+        {{ 1500 - comment.length }}
       </p>
     </div>
     <textarea class="editor-area" placeholder="Type your thoughts..." v-model="comment"> </textarea>
