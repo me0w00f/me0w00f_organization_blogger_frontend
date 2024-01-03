@@ -105,6 +105,7 @@ export default {
     },
     CloseManagePage(){
       this.ManagePageON = false
+      this.getPosts(this.page)
     },
     ChangeTimeZone(date: Date) {
       const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone

@@ -36,7 +36,28 @@ export default {
       await axios.get<PostListOfThisUser>('/api/resources/posts/per_user/' + page, config as any)
       .then(
         (response) => {
-          console.log(response.data)
+          this.post_list_to_render = response.data
+          console.log(this.post_list_to_render)
+        }
+      )
+    },
+    async DeletePost(postUUID: string | Blob){
+      let formData = new FormData()
+      formData.append('post_uuid', postUUID)
+      const token: String = localStorage.getItem('token') as String
+      const config = {
+        headers: {
+          Authorization: 'Bearer ' + token,
+          'Content-Type': 'multipart/form-data'
+        },
+        data: formData
+      }
+      await axios.delete('/api/posts/delete', config)
+      .then(
+        (response) => {
+          if (response.data.Status == 'Success!') {
+            this.GetOwnedPosts(this.page)
+          }
         }
       )
     }
@@ -55,7 +76,15 @@ export default {
     <h1 class="management-title">Management</h1>
     <div class="posts-list-self">
       <div class="article-list">
-
+      <li v-for="item in post_list_to_render">
+        <ul>
+          {{ item.post_uuid }}
+          {{ item.title }}
+          {{ item.create_time }}
+          <button class="buttons">Update</button>
+          <button class="buttons" @click="DeletePost(item.post_uuid as string)">Delete</button>
+        </ul>
+      </li>
       </div>
     </div>
     <button class="buttons" @click="ClosePage">Close</button>
