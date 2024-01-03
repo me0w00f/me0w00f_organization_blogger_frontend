@@ -7,7 +7,6 @@ import ProfilePage from './ProfilePage.vue'
 import ManagementPage from '../Management/ManagementPage.vue'
 import moment from 'moment-timezone'
 
-
 type BlogPost = {
   id: Number
   post_uuid: String
@@ -103,7 +102,7 @@ export default {
       this.UploadPageON = false
       this.ProfilePageON = false
     },
-    CloseManagePage(){
+    CloseManagePage() {
       this.ManagePageON = false
       this.getPosts(this.page)
     },
@@ -152,26 +151,32 @@ export default {
       <div class="button-container" v-if="isLogged">
         <button class="buttons" @click="OpenProfilePage">Profile</button>
         <button class="buttons" v-if="user_info.administrator" @click="OpenUploadPage">Post</button>
-        <button class="buttons" v-if="user_info.administrator" @click="OpenManagePage">Manage</button>
+        <button class="buttons" v-if="user_info.administrator" @click="OpenManagePage">
+          Manage
+        </button>
       </div>
     </div>
-
     <ProfilePage
+      v-if="ProfilePageON"
       :Opened="ProfilePageON"
       @close-profile-page="CloseProfilePage"
       @reload-profile="getUserInfo"
     />
     <UploadPage
+      v-if="UploadPageON"
       :Opened="UploadPageON"
       @close-upload-page="CloseUploadPage"
       @update-post-list="getPosts(page)"
     />
-    <ManagementPage 
-    :Opened="ManagePageON" 
-    @close-management-page="CloseManagePage" 
+    <ManagementPage
+      v-if="ManagePageON"
+      :Opened="ManagePageON"
+      @close-management-page="CloseManagePage"
     />
-    
-    <div class="article-list" v-if="UploadPageON == false && ProfilePageON == false && ManagePageON == false">
+    <div
+      class="article-list"
+      v-if="UploadPageON == false && ProfilePageON == false && ManagePageON == false"
+    >
       <p class="post-info-text" v-if="isLoading">Loading.....</p>
       <div class="post-items" v-for="post in posts.data">
         <h1 class="post-title" @click="ReadPost(post.post_uuid)">{{ post.title }}</h1>
