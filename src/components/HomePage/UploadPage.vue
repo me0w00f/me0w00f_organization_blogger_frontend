@@ -8,16 +8,34 @@ type Categories = {
   datetime: Date
 }
 
+type BlogPost = {
+  id: Number
+  post_uuid: string
+  title: string
+  tags: string
+  author_uuid: string
+  author: string
+  category_id: Number
+  category: string
+  comment: Boolean
+  create_time: Date
+  update_time: Date
+  content: String
+}
+
 export default {
   data() {
     return {
+      post_uuid: '',
       posts_title: '',
       tags: '',
       category_id: '',
       post_file: null,
       allow_comment: true,
       response_message: '',
-      categories: {} as Categories
+      update_post: false,
+      categories: {} as Categories,
+      original_post: {} as BlogPost
     }
   },
   props: {
@@ -63,11 +81,63 @@ export default {
             this.ClosePage()
           }
         } catch (error: any) {
-          this.response_message = error.detail
+          this.response_message = error.response.data.detail
           console.log(error)
         }
       } else {
         this.response_message = 'Please finish the form, all the input can not be empty!'
+      }
+    },
+    async UpdatePost() {
+      if (
+        this.post_uuid != '' &&
+        this.posts_title != '' &&
+        this.tags != '' &&
+        this.category_id != null &&
+        this.post_file != null
+      ) {
+        try {
+          const data = new FormData()
+          let allow_comment
+          if (this.allow_comment) {
+            allow_comment = 'true'
+          } else {
+            allow_comment = 'false'
+          }
+          const config = {
+            headers: {
+              Authorization: 'Bearer ' + localStorage.getItem('token'),
+              'Content-type': 'multipart/form-data'
+            }
+          }
+          data.append('post_uuid', this.post_uuid)
+          data.append('posts_title', this.posts_title)
+          data.append('tags', this.tags)
+          data.append('category_id', this.category_id)
+          data.append('comment', allow_comment)
+          data.append('new_content_file', this.post_file)
+          const response = await axios.put('/api/posts/update', data, config)
+          if ((response.data.Status = 'Success!')) {
+            this.$emit('update-post-list')
+            this.ClosePage()
+          }
+        } catch (error: any) {
+          this.response_message = error.response.data.detail
+          console.log(error)
+        }
+      } else {
+        this.response_message = 'Please finish the form, all the input can not be empty!'
+      }
+    },
+    async GetOriginalData() {
+      try {
+        const response = await axios.get<BlogPost>('/api/resources/posts/get/' + this.post_uuid)
+        this.original_post = response.data
+        this.posts_title = this.original_post.title
+        this.category_id = this.original_post.category_id.toString()
+        this.tags = this.original_post.tags
+      } catch (error) {
+        console.log(error)
       }
     },
     async GetAllCategories() {
@@ -77,6 +147,13 @@ export default {
         // console.log(this.categories)
       } catch (error) {
         console.log(error)
+      }
+    },
+    async sendRequestToServer() {
+      if (this.update_post) {
+        this.UpdatePost()
+      } else {
+        this.UploadPost()
       }
     },
     LoadPostFile(event: any) {
@@ -99,12 +176,21 @@ export default {
       <input class="form-input" type="text" placeholder="Category" v-model="category_id" />
       <table></table>
       <p class="check-box-text">
-        <input class="check-box" type="checkbox" v-model="allow_comment" /> Allow Comments
+        <input class="check-box" type="checkbox" v-model="allow_comment" /> Allow Comments.
+        <input class="check-box" type="checkbox" v-model="update_post" /> Update an post:
+        <input
+          class="form-input"
+          type="text"
+          placeholder="UUID of the post"
+          v-if="update_post"
+          v-model="post_uuid"
+          @change="GetOriginalData"
+        />
       </p>
       <input type="file" @change="LoadPostFile" />
     </div>
     <div class="button-container">
-      <button class="buttons button-upload" @click="UploadPost">Post</button>
+      <button class="buttons button-upload" @click="sendRequestToServer">Post</button>
       <button class="buttons button-upload" @click="ClosePage">Close</button>
       <p class="response-message" v-if="response_message != ''">{{ response_message }}</p>
     </div>
