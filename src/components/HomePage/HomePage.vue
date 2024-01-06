@@ -198,6 +198,26 @@ export default {
 </template>
 
 <style scoped>
+@keyframes avatar_rolling {
+  from {
+    scale: 0.6;
+    transform: rotate(0deg);
+  }
+  to{
+    scale: 1;
+    transform: rotate(-360deg);
+  }
+}
+
+@keyframes avatar_rolling_hover {
+  from {
+    transform: rotate(0deg);
+  }
+  to{
+    transform: rotate(-360deg);
+  }
+}
+
 h1 {
   font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght', system-ui, sans;
   font-weight: 450;
@@ -239,7 +259,12 @@ p {
   width: 100%;
   height: 100%;
   border-radius: 100%;
+  animation: avatar_rolling 500ms steps(360);
   /* background-color: #f3f3f3; */
+}
+
+.avatar-img:hover {
+  animation: avatar_rolling_hover 500ms infinite steps(360);
 }
 
 .user-name-text {
@@ -250,6 +275,8 @@ p {
   line-height: 50px;
   /* text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3); */
 }
+
+
 
 .bio-text {
   color: var(--text-font-color);
