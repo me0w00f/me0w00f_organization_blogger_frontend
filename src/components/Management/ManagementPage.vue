@@ -13,13 +13,22 @@ type PostsOfThisUser = {
   create_time: Date
 }
 
+type CategoryWithNumbers = {
+  category_id: Number,
+  category_name: String,
+  number_of_posts: Number
+}
+
+type CategoryList = CategoryWithNumbers[]
+
 type PostListOfThisUser = PostsOfThisUser[]
 
 export default {
   data() {
     return {
       page: 1 as Number,
-      post_list_to_render: [] as PostListOfThisUser
+      post_list_to_render: [] as PostListOfThisUser,
+      categories_list: [] as CategoryList,
     }
   },
   methods: {
@@ -39,6 +48,11 @@ export default {
           this.post_list_to_render = response.data
           console.log(this.post_list_to_render)
         })
+    },
+    async GetCategories(){
+      const response = await axios.get<CategoryList>('/api/posts/categories/getAll')
+      this.categories_list = response.data
+      console.log(this.categories_list)
     },
     async DeletePost(postUUID: string | Blob) {
       let formData = new FormData()
@@ -63,6 +77,7 @@ export default {
   },
   mounted() {
     this.GetOwnedPosts(this.page)
+    this.GetCategories()
   }
 }
 </script>
@@ -70,6 +85,7 @@ export default {
 <template>
   <div class="management-panel" v-if="Opened">
     <h1 class="management-title">Management</h1>
+    <h2 class="management-subtitle">Your Posts</h2>
     <table>
       <thead>
         <tr>
@@ -91,7 +107,23 @@ export default {
         </tr>
       </tbody>
     </table>
-
+    <h2 class="management-subtitle">Categories</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Category ID</th>
+          <th>Category</th>
+          <th>Count</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="item in categories_list">
+          <td>{{ item.category_id }}</td>
+          <td>{{ item.category_name }}</td>
+          <td>{{ item.number_of_posts }}</td>
+        </tr>
+      </tbody>
+    </table>
     <button class="buttons" @click="ClosePage">Close</button>
   </div>
 </template>
@@ -100,6 +132,13 @@ export default {
 h1 {
   font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght', system-ui, sans;
   font-weight: 450;
+  color: var(--text-font-color);
+  /* text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3); */
+}
+
+h2 {
+  font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght', system-ui, sans;
+  font-weight: 420;
   color: var(--text-font-color);
   /* text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3); */
 }
@@ -113,11 +152,14 @@ p {
 .management-title {
   font-size: 50px;
   line-height: 100px;
-  padding-left: 20px;
   padding-top: 10px;
   cursor: pointer;
   color: var(--text-font-color);
   transition: ease 0.5s;
+}
+
+.management-subtitle {
+  line-height: 60px;
 }
 
 .management-panel {
@@ -127,7 +169,7 @@ p {
 }
 
 table {
-  width: 100%;
+  width: auto;
   border-collapse: collapse;
   font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght', system-ui, sans;
 }
@@ -137,6 +179,8 @@ td {
   border: 1px solid black;
   padding-left: 8px;
   padding-right: 8px;
+  padding-top: 8px;
+  padding-bottom: 8px;
   text-align: left;
 }
 th {

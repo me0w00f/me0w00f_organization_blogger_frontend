@@ -173,7 +173,7 @@ export default {
     <div class="from-box">
       <input class="form-input" type="text" placeholder="Title" v-model="posts_title" />
       <input class="form-input" type="text" placeholder="Tags" v-model="tags" />
-      <input class="form-input" type="text" placeholder="Category" v-model="category_id" />
+      <input class="form-input" type="text" placeholder="Category ID" v-model="category_id" />
       <table></table>
       <p class="check-box-text">
         <input class="check-box" type="checkbox" v-model="allow_comment" /> Allow Comments.
