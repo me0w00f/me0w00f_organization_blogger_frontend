@@ -203,7 +203,7 @@ export default {
     scale: 0.6;
     transform: rotate(0deg);
   }
-  to{
+  to {
     scale: 1;
     transform: rotate(-360deg);
   }
@@ -213,7 +213,7 @@ export default {
   from {
     transform: rotate(0deg);
   }
-  to{
+  to {
     transform: rotate(-360deg);
   }
 }
@@ -275,8 +275,6 @@ p {
   line-height: 50px;
   /* text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3); */
 }
-
-
 
 .bio-text {
   color: var(--text-font-color);

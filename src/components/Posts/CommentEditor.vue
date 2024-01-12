@@ -87,7 +87,7 @@ export default {
       </p>
     </div>
     <textarea class="editor-area" placeholder="Type your thoughts..." v-model="comment"> </textarea>
-    <button class="buttons button-comment" @click="sendComment">Comment</button>
+    <button class="buttons button-comment" @click="sendComment" v-if="comment.length != 0 && comment.length < 1500">Comment</button>
   </div>
 </template>
 
@@ -168,5 +168,86 @@ export default {
 .button-comment {
   margin-left: auto;
   margin-right: 100px;
+}
+
+@media only screen and (max-width: 768px) {
+  .comment-editor {
+    margin-top: 15px;
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .editor-area {
+    color: var(--text-font-color);
+    width: 80%;
+    height: 50px;
+    resize: none;
+    margin: 0 auto;
+    font-size: 16px;
+    font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght', system-ui, sans;
+    border: none;
+    border-bottom: solid 2px #212121;
+    outline: none;
+    padding: 10px;
+    transition: ease-out 250ms;
+    /* text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3); */
+  }
+
+  .editor-area:focus {
+    transition: ease-in-out 250ms;
+    border-bottom: solid 2px var(--primary-color);
+  }
+
+  .user-aera {
+    width: 80%;
+    height: 25px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+
+  .avatar-area {
+    width: 25px;
+    height: 25px;
+    border-radius: 100%;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+  }
+
+  .avatar {
+    width: 25px;
+    height: 25px;
+    border-radius: 100%;
+  }
+
+  .user-name-text {
+    color: var(--text-font-color);
+    font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght', system-ui, sans;
+    font-size: 18px;
+    line-height: 25px;
+    /* text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3); */
+  }
+
+  .comment-words {
+    font-size: 14px;
+    color: #bebebe;
+    margin-left: auto;
+    margin-right: 15px;
+    text-shadow: none;
+  }
+
+  .comment-words-over {
+    color: var(--accent-color);
+  }
+
+  .button-comment {
+    font-size: 14px;
+    margin-left: auto;
+    margin-right: 25px;
+  }
 }
 </style>

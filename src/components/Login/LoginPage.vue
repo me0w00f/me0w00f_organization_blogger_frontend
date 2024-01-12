@@ -180,4 +180,77 @@ export default {
   filter: brightness(0.95);
   transition: 250ms ease-out;
 }
+
+@media only screen and (max-width: 768px) {
+  .login-page-container {
+    width: 100%;
+    height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    animation: FadeIn 0.5s;
+  }
+
+  .title-in-login-page {
+    font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght', system-ui, sans;
+    font-size: 30px;
+    /* text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3);  */
+    color: var(--text-font-color);
+  }
+
+  .text-in-login-page {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght', system-ui, sans;
+    font-size: 14px;
+    /* text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3); */
+    color: var(--text-font-sub-color);
+  }
+
+  .input-in-login-page {
+    font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght', system-ui, sans;
+    /* font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; */
+    font-size: 18px;
+    border: solid 1.6px var(--bottom-border-color);
+    background-color: #f1f1f1;
+    margin-top: 15px;
+    border-radius: 5px;
+    width: 80%;
+    height: 40px;
+    outline: none;
+    text-indent: 10px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    color: var(--text-font-color);
+  }
+
+  .input-in-login-page:focus {
+    border: solid 1.6px var(--accent-color);
+  }
+
+  .button-login {
+    margin-top: 15px;
+    width: 80%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 18px;
+  }
+
+  .swich-link {
+    font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght', system-ui, sans;
+    font-size: 14px;
+    line-height: 30px;
+    cursor: pointer;
+    color: var(--text-font-sub-color);
+    transition: 250ms ease-out;
+    /* text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3); */
+  }
+
+  .swich-link:hover {
+    color: var(--accent-color);
+    filter: brightness(0.95);
+    transition: 250ms ease-out;
+  }
+}
 </style>

@@ -55,6 +55,7 @@
   cursor: pointer;
   transition: ease-out 200ms;
   box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.2);
+  animation: FadeIn 500ms;
 }
 
 .buttons:hover {

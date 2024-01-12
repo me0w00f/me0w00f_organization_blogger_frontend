@@ -113,4 +113,50 @@ export default {
   background-color: var(--primary-color);
   /* text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5); */
 }
+
+@media only screen and (max-width: 768px) {
+  .main-bar-in-navbar {
+    background-color: var(--primary-color);
+    width: 100%;
+    height: 60px;
+    /* box-shadow: 0px 1.5px 5px var(--bottom-border-color); */
+    /* border-bottom: solid 4px var(--bottom-border-color); */
+    display: flex;
+    flex-direction: row;
+  }
+
+  .main-title-in-navbar {
+    font-family: 'Itim Regular', system-ui, sans;
+    font-size: 16px;
+    color: #ffffff;
+    line-height: 60px;
+    padding-left: 20px;
+    /* text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5); black shadow with 2px offset and 4px blur */
+  }
+
+  .link-container-in-navbar {
+    height: 78px;
+    /* margin-left: auto; */
+    margin-right: 20px;
+    display: none;
+  }
+
+  .router-link-exact-active {
+    font-weight: bolder;
+  }
+
+  #LogOut {
+    font-family: 'Itim Regular', system-ui, sans;
+    font-size: 18px;
+    color: #ffffff;
+    /* margin-right: auto; */
+    /* margin-left: 40px; */
+    height: 78px;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    background-color: var(--primary-color);
+    /* text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5); */
+  }
+}
 </style>

@@ -171,8 +171,12 @@ export default {
         :post_uuid="post_uuid as string"
         @update-comments-list="getComment"
       />
-      <div class="comment-display-area" v-for="items in comments" :id="(items.comment_uuid as string)">
-        <div class="comment-item" >
+      <div
+        class="comment-display-area"
+        v-for="items in comments"
+        :id="items.comment_uuid as string"
+      >
+        <div class="comment-item">
           <div class="info-area">
             <div class="avatar-area">
               <img class="avatar" :src="items.avatar" />
@@ -199,7 +203,7 @@ export default {
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  animation: FadeIn 0.5s;
+  animation: FadeIn 500ms;
 }
 
 .content-text {
@@ -211,6 +215,7 @@ export default {
   padding-top: 10px;
   color: var(--text-font-color);
   line-height: 50px;
+  animation: FadeIn 500ms;
   /* text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3); */
 }
 
@@ -225,6 +230,7 @@ export default {
   cursor: pointer;
   color: var(--text-font-color);
   transition: ease 0.5s;
+  animation: FadeIn 500ms;
   /* text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3); */
 }
 
@@ -241,12 +247,14 @@ export default {
   font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght', system-ui, sans;
   font-weight: 300;
   color: var(--text-font-sub-color);
+  animation: FadeIn 500ms;
   /* text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3); */
 }
 
 .CommentAera {
   width: 100%;
   height: auto;
+  animation: FadeIn 500ms;
 }
 
 .comment-display-area {
@@ -315,5 +323,140 @@ export default {
   padding-right: 75px;
   /* text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3); */
   white-space: pre-wrap;
+}
+
+@media only screen and (max-width: 768px) {
+  .posts-page-container {
+    width: 100%;
+    height: 90vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    scrollbar-width: none;
+    /* margin: 0 auto; */
+    display: flex;
+    flex-direction: column;
+    animation: FadeIn 500ms;
+  }
+
+  .content-text {
+    font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght', system-ui, sans;
+    font-weight: 325;
+    font-size: 14px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 10px;
+    color: var(--text-font-color);
+    line-height: 28px;
+    animation: FadeIn 500ms;
+    /* text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3); */
+  }
+
+  .post-title {
+    font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght', system-ui, sans;
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    cursor: pointer;
+    color: var(--text-font-color);
+    transition: ease 0.5s;
+    animation: FadeIn 500ms;
+    /* text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3); */
+  }
+
+  .post-title:hover {
+    transition: ease 0.5s;
+    color: var(--accent-color);
+  }
+
+  .post-info-text {
+    font-size: 14px;
+    line-height: 30px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 10px;
+    font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght', system-ui, sans;
+    font-weight: 300;
+    color: var(--text-font-sub-color);
+    animation: FadeIn 500ms;
+    /* text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3); */
+  }
+
+  .CommentAera {
+    width: 100%;
+    height: auto;
+    animation: FadeIn 500ms;
+  }
+
+  .comment-display-area {
+    margin-top: 30px;
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .comment-item {
+    width: 80%;
+    height: auto;
+    min-height: 50px;
+    display: flex;
+    flex-direction: column;
+    /* border-bottom: solid 1px var(--text-font-color); */
+    margin-bottom: 20px;
+  }
+
+  .avatar-area {
+    width: 25px;
+    height: 25px;
+    border-radius: 100%;
+    margin-right: 10px;
+  }
+
+  .info-area {
+    flex-direction: row;
+    display: flex;
+  }
+  .user-name-text {
+    font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght', system-ui, sans;
+    font-size: 16px;
+    line-height: 30px;
+    /* text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3); */
+  }
+  .avatar {
+    width: 25px;
+    height: 25px;
+    border-radius: 100%;
+  }
+
+  .date-text {
+    font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght', system-ui, sans;
+    font-size: 14px;
+    line-height: 25px;
+    color: #414141;
+    margin-left: auto;
+    /* text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3); */
+  }
+
+  .content-area {
+    display: flex;
+    justify-content: first baseline;
+  }
+
+  .content-text-comment {
+    font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght', system-ui, sans;
+    font-weight: 350;
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--text-font-sub-color);
+    padding-left: 35px;
+    padding-right: 5px;
+    /* text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3); */
+    white-space: pre-wrap;
+  }
 }
 </style>
