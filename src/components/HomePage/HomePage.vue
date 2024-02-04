@@ -348,10 +348,6 @@ p {
   flex-direction: row;
 }
 
-/* .posts-update {
-  
-} */
-
 .posts-create {
   margin-left: auto;
   margin-right: 10px;

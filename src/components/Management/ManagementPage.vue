@@ -14,8 +14,8 @@ type PostsOfThisUser = {
 }
 
 type CategoryWithNumbers = {
-  category_id: Number,
-  category_name: String,
+  category_id: Number
+  category_name: String
   number_of_posts: Number
 }
 
@@ -28,7 +28,7 @@ export default {
     return {
       page: 1 as Number,
       post_list_to_render: [] as PostListOfThisUser,
-      categories_list: [] as CategoryList,
+      categories_list: [] as CategoryList
     }
   },
   methods: {
@@ -49,7 +49,7 @@ export default {
           console.log(this.post_list_to_render)
         })
     },
-    async GetCategories(){
+    async GetCategories() {
       const response = await axios.get<CategoryList>('/api/posts/categories/getAll')
       this.categories_list = response.data
       console.log(this.categories_list)
