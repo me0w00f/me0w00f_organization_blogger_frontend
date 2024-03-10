@@ -1,5 +1,6 @@
 <script lang="ts">
 import axios from 'axios'
+import AccountSettings from './AccountSettings.vue'
 
 type UserInfo = {
   id: Number
@@ -16,7 +17,8 @@ export default {
     return {
       avatar_file: null,
       nick_name: '',
-      description: ''
+      description: '',
+      AccountSettingsON: false
     }
   },
   props: {
@@ -24,6 +26,9 @@ export default {
       type: Boolean,
       required: true
     }
+  },
+  components: {
+    AccountSettings
   },
   methods: {
     ClosePage() {
@@ -87,6 +92,12 @@ export default {
     submitForm() {
       this.updateUserInfo()
       this.setUserAvatar()
+    },
+    CloseAccountSettings() {
+      this.AccountSettingsON = false
+    },
+    OpenAccountSettings() {
+      this.AccountSettingsON = true
     }
   },
   mounted() {
@@ -108,10 +119,16 @@ export default {
       <input class="form-input" type="text" v-model="description" />
     </div>
     <div class="button-container">
+      <button class="buttons button-profile" @click="OpenAccountSettings">Account Settings</button>
       <button class="buttons button-profile" @click="submitForm">Submit</button>
       <button class="buttons button-profile" @click="ClosePage">close</button>
     </div>
   </div>
+  <AccountSettings
+    :-opened="AccountSettingsON"
+    v-if="AccountSettingsON"
+    @close-account-settings="CloseAccountSettings"
+  />
 </template>
 <style scoped>
 h1 {
@@ -191,6 +208,5 @@ p {
 }
 
 @media only screen and (max-width: 768px) {
-  
 }
 </style>
