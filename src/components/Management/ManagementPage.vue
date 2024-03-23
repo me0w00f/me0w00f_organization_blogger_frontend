@@ -194,4 +194,28 @@ tr:nth-child(odd) {
 tr:nth-child(even) {
   background-color: #f1f1f1;
 }
+
+@media only screen and (max-width: 768px) {
+  .management-title {
+    font-size: 25px;
+    line-height: 40px;
+    padding-top: 10px;
+    cursor: pointer;
+    color: var(--text-font-color);
+    transition: ease 0.5s;
+    padding-left: 20px;
+  }
+
+  .management-subtitle {
+    font-size: 18px;
+    padding-left: 20px;
+    line-height: 60px;
+  }
+
+  .management-panel {
+    width: 100%;
+    height: auto;
+    animation: FadeIn 0.5s;
+  }
+}
 </style>

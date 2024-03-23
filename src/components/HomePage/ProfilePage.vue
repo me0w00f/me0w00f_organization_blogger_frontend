@@ -110,7 +110,7 @@ export default {
     <h1 class="profile-title">Profile</h1>
     <div class="form-avatar-change">
       <p class="profile-text">Change your avatar.</p>
-      <input type="file" @change="LoadAvatarFile" />
+      <input class="form-input" type="file" @change="LoadAvatarFile" />
     </div>
     <div class="form-nick-name-and-description-change">
       <p class="profile-text">Edit your nick name</p>
@@ -208,5 +208,72 @@ p {
 }
 
 @media only screen and (max-width: 768px) {
+  .profile-container {
+    width: 100%;
+    height: auto;
+    animation: FadeIn 0.5s;
+  }
+
+  .profile-title {
+    font-size: 25px;
+    line-height: 40px;
+    padding-left: 20px;
+    padding-top: 10px;
+    cursor: pointer;
+    color: var(--text-font-color);
+    transition: ease 0.5s;
+    /* text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3); */
+  }
+
+  .form-avatar-change {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .form-nick-name-and-description-change {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .profile-text {
+    font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght', system-ui, sans;
+    font-size: 16px;
+    line-height: 25px;
+  }
+
+  .form-input {
+    width: 80%;
+    font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght', system-ui, sans;
+    font-size: 18px;
+    line-height: 30px;
+    border: none;
+    border-bottom: solid 2px #212121;
+    outline: none;
+    margin-bottom: 15px;
+    transition: ease-out 250ms;
+    margin-left: auto;
+    margin-right: auto;
+    /* text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3); */
+  }
+
+  .form-input:focus {
+    transition: ease-in-out 250ms;
+    border-bottom: solid 2px var(--primary-color);
+  }
+
+  .button-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  .button-profile {
+    width: 80%;
+    font-size: 16px;
+  }
 }
 </style>

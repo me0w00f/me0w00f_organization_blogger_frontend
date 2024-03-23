@@ -149,9 +149,9 @@ export default {
         {{ user_info.bio }}
       </p>
       <div class="button-container" v-if="isLogged">
-        <button class="buttons" @click="OpenProfilePage">Profile</button>
-        <button class="buttons" v-if="user_info.administrator" @click="OpenUploadPage">Post</button>
-        <button class="buttons" v-if="user_info.administrator" @click="OpenManagePage">
+        <button class="buttons account-button" @click="OpenProfilePage">Profile</button>
+        <button class="buttons account-button" v-if="user_info.administrator" @click="OpenUploadPage">Post</button>
+        <button class="buttons account-button" v-if="user_info.administrator" @click="OpenManagePage">
           Manage
         </button>
       </div>
@@ -357,5 +357,146 @@ p {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+}
+
+@media only screen and (max-width: 768px) {
+  .home-page-container {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .account-info {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    animation: FadeIn 0.5s;
+    margin-right: none;
+  }
+
+  .avatar {
+    margin-top: 25px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100px;
+    height: 100px;
+    border-radius: 100%;
+  }
+
+  .avatar-img {
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
+    animation: avatar_rolling 500ms steps(360);
+    /* background-color: #f3f3f3; */
+  }
+
+  .avatar-img:hover {
+    animation: avatar_rolling_hover 500ms infinite steps(360);
+  }
+
+  .user-name-text {
+    color: var(--text-font-color);
+    font-family: 'Mooli-Regular', system-ui, sans;
+    font-size: 18px;
+    text-align: center;
+    line-height: 30px;
+    /* text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3); */
+  }
+
+  .bio-text {
+    color: var(--text-font-color);
+    font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght', system-ui, sans;
+    font-size: 14px;
+    /* text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3); */
+    text-align: center;
+    line-height: 20px;
+    padding: 5px;
+  }
+
+  .article-list {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    animation: FadeIn 0.5s;
+    overflow-y: scroll;
+    scrollbar-width: none;
+  }
+
+  .post-items {
+    width: 100%;
+    height: auto;
+    /* box-shadow: 0px 2.5px 5px rgba(0, 0, 0, 0.2); */
+    border-bottom: solid 1px rgba(0, 0, 0, 0.2);
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .post-title {
+    font-size: 18px;
+    line-height: 30px;
+    /* padding-left: 20px;
+    padding-top: 10px; */
+    cursor: pointer;
+    transition: ease 0.5s;
+    /* text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3); */
+  }
+
+  .post-title:hover {
+    transition: ease 0.5s;
+    color: var(--accent-color);
+  }
+
+  .post-info-text {
+    font-size: 14px;
+    line-height: 20px;
+    padding-left: 40px;
+    padding-right: auto;
+    padding-top: 0px;
+    text-shadow: none;
+  }
+
+  .tags-list {
+    width: 25vw;
+    height: 100px;
+  }
+
+  .mid-control {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  .foot-control {
+    margin-top: auto;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: row;
+  }
+
+  .posts-create {
+    margin-left: auto;
+    margin-right: 10px;
+  }
+  
+  .button-container {
+    margin-top: 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .account-button {
+    font-size: 16px;
+  }
 }
 </style>
