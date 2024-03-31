@@ -105,7 +105,7 @@ location /api {
 
 This will forward all requests from `/api` to your backend service. Make sure to reload nginx after updating the config to apply the changes. 
 
-Click [here]() to read the documentation about the backend.
+Click [here](https://github.com/me0w00f/me0w00f_organization_blogger_backend/blob/main/README.md) to read the documentation about the backend.
 
 After saving the configuration, test it to ensure there are no syntax errors:
 ```bash
@@ -119,7 +119,6 @@ sudo systemctl restart nginx
 
 Your Vue.js application should now be served by nginx and accessible via the domain you configured.
 
-#### Conclusion
 
 That's it! You've successfully set up and deployed the Me0w00f Organization Blog WebUI using nginx. 
 
