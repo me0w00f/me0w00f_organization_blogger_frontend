@@ -6,7 +6,9 @@ import { storeToRefs } from 'pinia'
 export default {
   data() {
     return {
-      isNotLogged: true
+      isNotLogged: true,
+      menu_text: '=' as string,
+      menu_display: false
     }
   },
   methods: {
@@ -22,7 +24,16 @@ export default {
       localStorage.removeItem('token')
       AuthenticateStatus().setLogStatus(false)
       this.$router.push('/')
+      this.menu_display = false
       console.log(this.logStatus.isLogged)
+    },
+    menu_switch() {
+      this.menu_display = !this.menu_display
+      if (this.menu_display) {
+        this.menu_text = '×'
+      } else {
+        this.menu_text = '='
+      }
     }
   },
   components: {
@@ -51,6 +62,13 @@ export default {
 <template>
   <div class="main-bar-in-navbar">
     <p class="main-title-in-navbar">Me0W00f Technology Blog</p>
+    <div class="link-menu-in-navbar" v-if="menu_display">
+      <RouterLink to="/">Home</RouterLink>
+      <RouterLink to="/login" v-if="isNotLogged">Login</RouterLink>
+      <button id="LogOut" @click="logout" v-else>Logout</button>
+      <!-- <RouterLink to="/posts">Articles</RouterLink> -->
+      <RouterLink to="/about">About</RouterLink>
+    </div>
     <div class="link-container-in-navbar">
       <RouterLink to="/">Home</RouterLink>
       <RouterLink to="/login" v-if="isNotLogged">Login</RouterLink>
@@ -58,6 +76,7 @@ export default {
       <!-- <RouterLink to="/posts">Articles</RouterLink> -->
       <RouterLink to="/about">About</RouterLink>
     </div>
+    <button class="buttons menu-button" @click="menu_switch">{{ menu_text }}</button>
   </div>
 </template>
 
@@ -114,6 +133,14 @@ export default {
   /* text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5); */
 }
 
+.link-menu-in-navbar {
+  display: none;
+}
+
+.menu-button {
+  display: none;
+}
+
 @media only screen and (max-width: 768px) {
   .main-bar-in-navbar {
     background-color: var(--primary-color);
@@ -146,17 +173,44 @@ export default {
   }
 
   #LogOut {
+    width: 100%;
     font-family: 'Itim Regular', system-ui, sans;
-    font-size: 18px;
+    font-size: 14px;
     color: #ffffff;
     /* margin-right: auto; */
-    /* margin-left: 40px; */
-    height: 78px;
+    margin-left: 0px;
+    height: 40px;
     cursor: pointer;
     border: none;
     outline: none;
     background-color: var(--primary-color);
     /* text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5); */
+  }
+  .link-menu-in-navbar {
+    display: flex;
+    position: absolute;
+    flex-direction: column;
+    top: 60px;
+    width: 100%;
+    height: auto;
+    text-align: center;
+    background-color: var(--primary-color);
+  }
+
+  .link-menu-in-navbar a {
+    font-family: 'Itim Regular', system-ui, sans;
+    font-size: 14px;
+    color: #ffffff;
+    line-height: 40px;
+    text-decoration: none;
+    /* text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5); */
+  }
+  .menu-button {
+    display: block;
+    margin-top: 0px;
+    font-size: 20px;
+    margin-left: auto;
+    margin-right: 5px;
   }
 }
 </style>

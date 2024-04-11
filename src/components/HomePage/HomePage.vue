@@ -250,13 +250,11 @@ p {
   height: 100%;
   border-radius: 100%;
   /* background-color: #f3f3f3; */
-
 }
 
 .avatar-img:hover {
   position: relative;
   top: -10px;
-  
 }
 
 .user-name-text {
@@ -347,8 +345,9 @@ p {
 .button-container {
   margin-top: 15px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-around;
+  padding: 20px;
 }
 
 @media only screen and (max-width: 768px) {
@@ -376,18 +375,21 @@ p {
     width: 100px;
     height: 100px;
     border-radius: 100%;
+    transition: 1000ms;
   }
 
   .avatar-img {
     width: 100%;
     height: 100%;
     border-radius: 100%;
+    transition: 1000ms;
     /* background-color: #f3f3f3; */
   }
 
   .avatar-img:hover {
     position: relative;
     top: -10px;
+    transition: 1000ms;
   }
 
   .user-name-text {
