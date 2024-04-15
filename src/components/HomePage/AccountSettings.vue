@@ -23,9 +23,8 @@ export default {
       } else if (this.new_password == '' && this.verify_password == '') {
         this.message = 'Password cannot be empty!'
       } else {
-        
         try {
-          const token = localStorage.getItem('token')          
+          const token = localStorage.getItem('token')
           const config = {
             headers: {
               Authorization: 'Bearer ' + token
@@ -36,8 +35,8 @@ export default {
             new_password: this.new_password,
             verify_new_password: this.verify_password
           }
-          
-          const response = await axios.post('/api/user/password/modify', data, config)            
+
+          const response = await axios.post('/api/user/password/modify', data, config)
           if (response.data.Status == 'Success!') {
             this.message = response.data.Status =
               'Success! Please use your new password in next login.'
