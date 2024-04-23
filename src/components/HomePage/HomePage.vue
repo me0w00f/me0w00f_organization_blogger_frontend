@@ -59,16 +59,20 @@ export default {
       }
     },
     async getUserInfo() {
-      try {
-        const config = {
-          headers: {
-            Authorization: 'Bearer ' + localStorage.getItem('token')
+      if (this.isLogged) {
+        try {
+          const config = {
+            headers: {
+              Authorization: 'Bearer ' + localStorage.getItem('token')
+            }
           }
+          const response = await axios.get<UserInfo>('/api/resources/user_info/get', config)
+          this.user_info = response.data
+        } catch (error) {
+          console.log(error)
         }
-        const response = await axios.get<UserInfo>('/api/resources/user_info/get', config)
-        this.user_info = response.data
-      } catch (error) {
-        console.log(error)
+      }else{
+        console.log("Not logged.");
       }
     },
     ReadPost(post_uuid: String) {
