@@ -35,7 +35,7 @@
   --primary-color: #ef86c1;
   --secondary-color: #ed86c1;
   --accent-color: #d667a5;
-  --background-color: #ffffff;
+  --background-color: #f1f1f1;
   --text-font-color: #212121;
   --bottom-border-color: #bdbdbd;
   --text-font-sub-color: #414141;
@@ -68,4 +68,29 @@
   transition: ease-out 200ms;
   transform: scale(0.975);
   filter: brightness(0.775);
+}
+
+h2 {
+  font-size: 32px;
+  line-height: 65px;
+}
+
+body {
+  background-color: var(--background-color);
+}
+
+ul {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+li {
+  margin-left: 2em;
+}
+
+@media only screen and (max-width: 768px) {
+  h2 {
+    font-size: 18px;
+    line-height: 30px;
+  }
 }

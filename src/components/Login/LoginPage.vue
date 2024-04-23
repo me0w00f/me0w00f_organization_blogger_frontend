@@ -118,6 +118,7 @@ export default {
   align-items: center;
   flex-direction: column;
   animation: FadeIn 0.5s;
+  background-color: #ffffff;
 }
 
 .title-in-login-page {
@@ -190,6 +191,7 @@ export default {
     align-items: center;
     flex-direction: column;
     animation: FadeIn 0.5s;
+    background-color: #ffffff;
   }
 
   .title-in-login-page {

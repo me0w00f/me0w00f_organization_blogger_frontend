@@ -238,6 +238,7 @@ p {
   flex-direction: column;
   animation: FadeIn 0.5s;
   margin-right: auto;
+  background-color: #ffffff;
 }
 
 .avatar {
@@ -288,6 +289,7 @@ p {
   animation: FadeIn 0.5s;
   overflow-y: scroll;
   scrollbar-width: none;
+  background-color: #ffffff;
 }
 
 .post-items {
@@ -370,6 +372,7 @@ p {
     flex-direction: column;
     animation: FadeIn 0.5s;
     margin-right: none;
+    background-color: #ffffff;
   }
 
   .avatar {
@@ -423,6 +426,7 @@ p {
     animation: FadeIn 0.5s;
     overflow-y: scroll;
     scrollbar-width: none;
+    background-color: #ffffff;
   }
 
   .post-items {

@@ -147,6 +147,7 @@ p {
   width: 55vw;
   height: 90vh;
   animation: FadeIn 0.5s;
+  background-color: #ffffff;
 }
 
 .profile-title {
@@ -212,6 +213,7 @@ p {
     width: 100%;
     height: auto;
     animation: FadeIn 0.5s;
+    background-color: #ffffff;
   }
 
   .profile-title {

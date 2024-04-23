@@ -214,6 +214,7 @@ p {
   width: 55vw;
   height: 90vh;
   animation: FadeIn 0.5s;
+  background-color: #ffffff;
 }
 
 .post-title {
@@ -231,7 +232,7 @@ p {
   height: auto;
   display: flex;
   flex-direction: column;
-  padding: 20px;
+  /* padding: 20px; */
 }
 
 .form-input {
@@ -286,6 +287,7 @@ p {
     width: 100%;
     height: auto;
     animation: FadeIn 0.5s;
+    background-color: #ffffff;
   }
 
   .post-title {

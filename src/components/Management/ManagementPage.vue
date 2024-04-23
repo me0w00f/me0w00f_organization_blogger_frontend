@@ -166,6 +166,7 @@ p {
   width: 55vw;
   height: 90vh;
   animation: FadeIn 0.5s;
+  background-color: #ffffff;
 }
 
 table {
@@ -216,6 +217,7 @@ tr:nth-child(even) {
     width: 100%;
     height: auto;
     animation: FadeIn 0.5s;
+    background-color: #ffffff;
   }
 }
 </style>

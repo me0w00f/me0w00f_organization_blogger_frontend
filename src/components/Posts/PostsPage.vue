@@ -204,6 +204,7 @@ export default {
   display: flex;
   flex-direction: column;
   animation: FadeIn 500ms;
+  background-color: #ffffff;
 }
 
 .content-text {
@@ -214,16 +215,15 @@ export default {
   padding-right: 100px;
   padding-top: 10px;
   color: var(--text-font-color);
-  line-height: 50px;
+  /* line-height: 25px; */
   animation: FadeIn 500ms;
   /* text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3); */
 }
-
 .post-title {
   font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght', system-ui, sans;
-  font-weight: 400;
-  font-size: 50px;
-  line-height: 80px;
+  font-weight: 600;
+  font-size: 36px;
+  line-height: 40px;
   padding-left: 100px;
   padding-top: 30px;
   padding-bottom: 30px;
@@ -346,16 +346,16 @@ export default {
     padding-right: 20px;
     padding-top: 10px;
     color: var(--text-font-color);
-    line-height: 28px;
+    /* line-height: 28px; */
     animation: FadeIn 500ms;
     /* text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3); */
   }
 
   .post-title {
     font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght', system-ui, sans;
-    font-weight: 400;
-    font-size: 32px;
-    line-height: 40px;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 30px;
     padding-left: 20px;
     padding-right: 20px;
     padding-top: 10px;

@@ -21,6 +21,7 @@ export default {
   align-items: center;
   flex-direction: column;
   animation: FadeIn 0.8s;
+  background-color: #ffffff;
 }
 
 .logo-bar {
