@@ -276,9 +276,9 @@ p {
   font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght', system-ui, sans;
   font-size: 18px;
   /* text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3); */
-  text-align: center;
+  text-align: left;
   line-height: 25px;
-  padding: 5px;
+  padding: 30px;
 }
 
 .article-list {

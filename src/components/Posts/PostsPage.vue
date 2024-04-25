@@ -223,8 +223,9 @@ export default {
   font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght', system-ui, sans;
   font-weight: 600;
   font-size: 36px;
-  line-height: 40px;
+  line-height: 42px;
   padding-left: 100px;
+  padding-right: 100px;
   padding-top: 30px;
   padding-bottom: 30px;
   cursor: pointer;

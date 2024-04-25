@@ -70,9 +70,14 @@
   filter: brightness(0.775);
 }
 
-h2 {
+h1 {
   font-size: 32px;
   line-height: 65px;
+}
+
+h2 {
+  font-size: 24px;
+  line-height: 49px;
 }
 
 body {
