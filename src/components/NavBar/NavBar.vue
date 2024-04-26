@@ -84,7 +84,7 @@ export default {
 .main-bar-in-navbar {
   background-color: var(--primary-color);
   width: 100%;
-  height: 78px;
+  height: 68px;
   /* box-shadow: 0px 1.5px 5px var(--bottom-border-color); */
   /* border-bottom: solid 4px var(--bottom-border-color); */
   display: flex;
@@ -95,13 +95,13 @@ export default {
   font-family: 'Itim Regular', system-ui, sans;
   font-size: 28px;
   color: #ffffff;
-  line-height: 78px;
+  line-height: 68px;
   padding-left: 20px;
   /* text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5); black shadow with 2px offset and 4px blur */
 }
 
 .link-container-in-navbar {
-  height: 78px;
+  height: 68px;
   margin-left: auto;
   margin-right: 20px;
 }
@@ -110,7 +110,7 @@ export default {
   font-size: 25px;
   color: #ffffff;
   margin-left: 40px;
-  line-height: 78px;
+  line-height: 68px;
   text-decoration: none;
   /* text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5); */
 }
@@ -125,7 +125,7 @@ export default {
   color: #ffffff;
   margin-right: auto;
   margin-left: 40px;
-  height: 78px;
+  height: 68px;
   cursor: pointer;
   border: none;
   outline: none;

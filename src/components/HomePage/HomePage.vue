@@ -9,13 +9,14 @@ import moment from 'moment-timezone'
 
 type BlogPost = {
   id: Number
-  post_uuid: String
-  title: String
-  author_uuid: String
-  author_name: String
-  tags: String
+  post_uuid: string
+  title: string
+  author_uuid: string
+  author_name: string
+  cover_url: string
+  tags: string
   category_id: Number
-  category: String
+  category: string
   comment: Boolean
   create_time: Date
   update_time: Date
@@ -71,8 +72,8 @@ export default {
         } catch (error) {
           console.log(error)
         }
-      }else{
-        console.log("Not logged.");
+      } else {
+        console.log('Not logged.')
       }
     },
     ReadPost(post_uuid: String) {
@@ -193,15 +194,25 @@ export default {
     >
       <p class="post-info-text" v-if="isLoading">Loading.....</p>
       <div class="post-items" v-for="post in posts.data">
-        <h1 class="post-title" @click="ReadPost(post.post_uuid)">{{ post.title }}</h1>
-        <div class="mid-control">
-          <p class="post-info-text">{{ post.author_name }}</p>
-          <p class="post-info-text">{{ post.category }}</p>
-          <p class="post-info-text">{{ post.tags }}</p>
+        <div class="post-items-cover">
+          <img
+            :src="post.cover_url"
+            @click="ReadPost(post.post_uuid)"
+            v-if="post.cover_url != null"
+          />
+          <img src="src/assets/icons/logo-color.png" @click="ReadPost(post.post_uuid)" v-else />
         </div>
-        <div class="foot-control">
-          <!-- <p class="post-info-text posts-update">updated {{ calculateTimeAgo(post.update_time) }}</p> -->
-          <p class="post-info-text posts-create">{{ ChangeTimeZone(post.create_time) }}</p>
+        <div class="post-items-info">
+          <h1 class="post-title" @click="ReadPost(post.post_uuid)">{{ post.title }}</h1>
+          <div class="mid-control">
+            <p class="post-info-text">{{ post.author_name }}</p>
+            <p class="post-info-text">{{ post.category }}</p>
+            <p class="post-info-text">{{ post.tags }}</p>
+          </div>
+          <div class="foot-control">
+            <!-- <p class="post-info-text posts-update">updated {{ calculateTimeAgo(post.update_time) }}</p> -->
+            <p class="post-info-text posts-create">{{ ChangeTimeZone(post.create_time) }}</p>
+          </div>
         </div>
       </div>
     </div>
@@ -294,14 +305,41 @@ p {
 
 .post-items {
   width: 95%;
-  height: 150px;
+  height: 280px;
   /* box-shadow: 0px 2.5px 5px rgba(0, 0, 0, 0.2); */
   border-bottom: solid 1px rgba(0, 0, 0, 0.2);
   margin-top: 10px;
   margin-left: auto;
   margin-right: auto;
   display: flex;
+  flex-direction: row;
+}
+
+.post-items-info {
+  width: 50%;
+  display: flex;
   flex-direction: column;
+}
+.post-items-cover {
+  width: 50%;
+  height: 250px;
+  justify-content: center;
+  padding-bottom: 30px;
+}
+
+.post-items-cover img {
+  width: 100%;
+  height: auto;
+  max-height: 100%;
+  object-fit: cover;
+  border-radius: 20px;
+  transition: ease-in-out 500ms;
+  cursor: pointer;
+}
+
+.post-items-cover img:hover {
+  transform: scale(0.955);
+  transition: ease-in-out 500ms;
 }
 
 .post-title {
@@ -440,7 +478,33 @@ p {
     display: flex;
     flex-direction: column;
   }
+  .post-items-info {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  .post-items-cover {
+    width: 95%;
+    height: 250px;
+    justify-content: center;
+    padding-bottom: 30px;
+    padding: 10px
+  }
 
+  .post-items-cover img {
+    width: 100%;
+    height: auto;
+    max-height: 100%;
+    object-fit: cover;
+    border-radius: 20px;
+    transition: ease-in-out 500ms;
+    cursor: pointer;
+  }
+
+  .post-items-cover img:hover {
+    transform: scale(0.955);
+    transition: ease-in-out 500ms;
+  }
   .post-title {
     font-size: 18px;
     line-height: 30px;
