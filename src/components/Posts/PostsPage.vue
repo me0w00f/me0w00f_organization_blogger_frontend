@@ -20,16 +20,17 @@ type CommentData = {
 type BlogPost = {
   id: Number
   post_uuid: string
-  title: String
-  tags: String
-  author_uuid: String
-  author: String
+  title: string
+  cover_url: string
+  tags: string
+  author_uuid: string
+  author: string
   category_id: Number
-  category: String
+  category: string
   comment: Boolean
   create_time: Date
   update_time: Date
-  content: String
+  content: string
 }
 
 type CommentDataList = CommentData[]
@@ -158,6 +159,7 @@ export default {
 
 <template>
   <div class="posts-page-container">
+    <img class="cover-img" :src="post_data.cover_url" v-if="post_data.cover_url != null" />
     <h1 class="post-title">{{ post_data.title }}</h1>
     <h2 class="post-info-text">
       {{ post_data.author }} | {{ post_data.category }} | CREATE:
@@ -205,8 +207,22 @@ export default {
   flex-direction: column;
   animation: FadeIn 500ms;
   background-color: #ffffff;
+  border-radius: 20px;
 }
 
+.cover-img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 20px;
+  transition: ease-in-out 500ms;
+  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.2);
+}
+
+.cover-img:hover {
+  transition: ease-in-out 500ms;
+  transform: scale(0.95);
+}
 .content-text {
   font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght', system-ui, sans;
   font-weight: 325;
@@ -337,8 +353,30 @@ export default {
     display: flex;
     flex-direction: column;
     animation: FadeIn 500ms;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
   }
 
+  .cover-img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    transition: ease-in-out 500ms;
+    box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.2);
+  }
+
+  .cover-img:hover {
+    transition: ease-in-out 500ms;
+    transform: scale(0.95);
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+  }
   .content-text {
     font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght', system-ui, sans;
     font-weight: 325;
