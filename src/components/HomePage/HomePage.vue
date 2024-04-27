@@ -154,7 +154,7 @@ export default {
         {{ user_info.bio }}
       </p>
       <div class="button-container" v-if="isLogged">
-        <button class="buttons account-button" @click="OpenProfilePage">Profile</button>
+        <!-- <button class="buttons account-button" @click="OpenProfilePage">Profile</button> -->
         <button
           class="buttons account-button"
           v-if="user_info.administrator"
@@ -162,36 +162,27 @@ export default {
         >
           Post
         </button>
-        <button
+        <!-- <button
           class="buttons account-button"
           v-if="user_info.administrator"
           @click="OpenManagePage"
         >
           Manage
-        </button>
+        </button> -->
       </div>
     </div>
-    <ProfilePage
+    <!-- <ProfilePage
       v-if="ProfilePageON"
       :Opened="ProfilePageON"
       @close-profile-page="CloseProfilePage"
       @reload-profile="getUserInfo"
-    />
-    <UploadPage
-      v-if="UploadPageON"
-      :Opened="UploadPageON"
-      @close-upload-page="CloseUploadPage"
-      @update-post-list="getPosts(page)"
-    />
-    <ManagementPage
+    /> -->
+    <!-- <ManagementPage
       v-if="ManagePageON"
       :Opened="ManagePageON"
       @close-management-page="CloseManagePage"
-    />
-    <div
-      class="article-list"
-      v-if="UploadPageON == false && ProfilePageON == false && ManagePageON == false"
-    >
+    /> -->
+    <div class="article-list">
       <p class="post-info-text" v-if="isLoading">Loading.....</p>
       <div class="post-items" v-for="post in posts.data">
         <div class="post-items-cover">
@@ -220,6 +211,12 @@ export default {
       <!-- Show All tags here -->
     </div>
   </div>
+  <UploadPage
+      v-if="UploadPageON"
+      :Opened="UploadPageON"
+      @close-upload-page="CloseUploadPage"
+      @update-post-list="getPosts(page)"
+    />
 </template>
 
 <style scoped>

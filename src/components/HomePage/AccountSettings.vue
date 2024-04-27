@@ -54,7 +54,7 @@ export default {
 </script>
 
 <template>
-  <div class="mask">
+  <div class="mask" v-if="Opened">
     <div class="account-settings-panel">
       <h1 class="settings-title">Accout Settings</h1>
       <div class="password-change">
@@ -93,7 +93,7 @@ p {
   /* text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3); */
 }
 .mask {
-  top: -78px;
+  top: -68px;
   position: absolute;
   width: 100%;
   height: 108vh;
