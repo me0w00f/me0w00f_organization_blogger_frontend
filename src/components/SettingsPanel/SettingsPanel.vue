@@ -1,7 +1,10 @@
 <script lang="ts">
 export default {
   data() {
-    return {}
+    return {
+      activeButton: 'general' as string,
+      
+    }
   },
   methods: {
     CloseSettingsPanel() {
@@ -24,9 +27,27 @@ export default {
       <h1 class="settings-title">Settings</h1>
       <div class="settings-container">
         <div class="settings-menu">
-          <button class="settings-button-active">General</button>
-          <button class="settings-button">Account Settings</button>
-          <button class="settings-button">Management</button>
+          <button
+            :class="[{ 'settings-button-active': activeButton === 'general' }, 'settings-button']"
+            @click="activeButton = 'general'"
+          >
+            General
+          </button>
+          <button
+            :class="[{ 'settings-button-active': activeButton === 'account' }, 'settings-button']"
+            @click="activeButton = 'account'"
+          >
+            Account Settings
+          </button>
+          <button
+            :class="[
+              { 'settings-button-active': activeButton === 'management' },
+              'settings-button'
+            ]"
+            @click="activeButton = 'management'"
+          >
+            Management
+          </button>
         </div>
         <div class="settings-page">
           <button class="buttons" @click="CloseSettingsPanel">close</button>
