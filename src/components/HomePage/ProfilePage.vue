@@ -1,6 +1,5 @@
 <script lang="ts">
 import axios from 'axios'
-import AccountSettings from './AccountSettings.vue'
 
 type UserInfo = {
   id: Number
@@ -16,19 +15,18 @@ export default {
   data() {
     return {
       avatar_file: null,
-      nick_name: '',
-      description: '',
-      AccountSettingsON: false
+      nick_name: '' as string,
+      description: '' as string,
+      new_password: '' as string,
+      verify_password: '' as string,
+      message: '' as string
     }
   },
   props: {
     Opened: {
-      type: Boolean,
+      type: String,
       required: true
     }
-  },
-  components: {
-    AccountSettings
   },
   methods: {
     ClosePage() {
@@ -62,7 +60,7 @@ export default {
       }
       const response = await axios.put('/api/user/info/modify', new_user_info, config)
       if (response.data.Status == 'Success!') {
-        this.$emit('reload-profile')
+        this.$emit('reload-page')
         this.getOriginalProfile()
       }
     },
@@ -79,7 +77,7 @@ export default {
         data.append('avatar_file', this.avatar_file)
         const response = await axios.post('/api/user/avatar/set', data, confg)
         if (response.data.Status == 'Success!') {
-          this.$emit('reload-profile')
+          this.$emit('reload-page')
         }
       } else {
         console.log('Unable to set your avatar with an empty file.')
@@ -93,11 +91,35 @@ export default {
       this.updateUserInfo()
       this.setUserAvatar()
     },
-    CloseAccountSettings() {
-      this.AccountSettingsON = false
-    },
-    OpenAccountSettings() {
-      this.AccountSettingsON = true
+    async ChangePassword() {
+      // Method to change password.
+      if (this.new_password != this.verify_password) {
+        this.message = 'Inconsistency between two password entries.'
+      } else if (this.new_password == '' && this.verify_password == '') {
+        this.message = 'Password cannot be empty!'
+      } else {
+        try {
+          const token = localStorage.getItem('token')
+          const config = {
+            headers: {
+              Authorization: 'Bearer ' + token
+            }
+          }
+
+          const data = {
+            new_password: this.new_password,
+            verify_new_password: this.verify_password
+          }
+
+          const response = await axios.post('/api/user/password/modify', data, config)
+          if (response.data.Status == 'Success!') {
+            this.message = response.data.Status =
+              'Success! Please use your new password in next login.'
+          }
+        } catch (error) {
+          alert(error)
+        }
+      }
     }
   },
   mounted() {
@@ -106,8 +128,8 @@ export default {
 }
 </script>
 <template>
-  <div class="profile-container" v-if="Opened">
-    <h1 class="profile-title">Profile</h1>
+  <div class="profile-container" v-if="Opened === 'account'">
+    <h1 class="profile-title">Account Settings</h1>
     <div class="form-avatar-change">
       <p class="profile-text">Change your avatar.</p>
       <input class="form-input" type="file" @change="LoadAvatarFile" />
@@ -119,16 +141,28 @@ export default {
       <input class="form-input" type="text" v-model="description" />
     </div>
     <div class="button-container">
-      <button class="buttons button-profile" @click="OpenAccountSettings">Account Settings</button>
       <button class="buttons button-profile" @click="submitForm">Submit</button>
-      <button class="buttons button-profile" @click="ClosePage">close</button>
+    </div>
+    <div class="password-change">
+      <p class="profile-text">Change Password</p>
+      <input
+        class="form-input"
+        type="password"
+        v-model="new_password"
+        placeholder="New Password."
+      />
+      <input
+        class="form-input"
+        type="password"
+        v-model="verify_password"
+        placeholder="Verify Password."
+      />
+      <p class="settings-text" v-if="message.length != 0">{{ message }}</p>
+      <div class="button-container">
+        <button class="buttons button-profile" @click="ChangePassword">Confirm</button>
+      </div>
     </div>
   </div>
-  <AccountSettings
-    :-opened="AccountSettingsON"
-    v-if="AccountSettingsON"
-    @close-account-settings="CloseAccountSettings"
-  />
 </template>
 <style scoped>
 h1 {
@@ -144,15 +178,15 @@ p {
   /* text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3); */
 }
 .profile-container {
-  width: 55vw;
-  height: 90vh;
+  width: 100%;
+  height: auto;
   animation: FadeIn 0.5s;
   background-color: #ffffff;
 }
 
 .profile-title {
-  font-size: 50px;
-  line-height: 100px;
+  font-size: 24px;
+  line-height: 30px;
   padding-left: 20px;
   padding-top: 10px;
   cursor: pointer;
@@ -175,15 +209,15 @@ p {
 
 .profile-text {
   font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght', system-ui, sans;
-  font-size: 18px;
-  line-height: 40px;
+  font-size: 16px;
+  line-height: 30px;
   padding-left: 20px;
 }
 
 .form-input {
   font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght', system-ui, sans;
-  font-size: 18px;
-  line-height: 40px;
+  font-size: 16px;
+  line-height: 30px;
   border: none;
   border-bottom: solid 2px #212121;
   outline: none;
@@ -206,6 +240,18 @@ p {
 
 .button-profile {
   width: 80%;
+}
+
+.password-change {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.settings-text {
+  font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght', system-ui, sans;
+  font-size: 16px;
+  line-height: 30px;
 }
 
 @media only screen and (max-width: 768px) {

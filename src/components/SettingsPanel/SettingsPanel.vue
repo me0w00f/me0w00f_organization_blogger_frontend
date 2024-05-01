@@ -1,15 +1,25 @@
 <script lang="ts">
+import ProfilePage from '../HomePage/ProfilePage.vue';
+import ManagementPage from '../Management/ManagementPage.vue';
+
 export default {
   data() {
     return {
-      activeButton: 'general' as string,
-      
+      activeButton: 'account' as string
     }
   },
   methods: {
     CloseSettingsPanel() {
       this.$emit('close-settings-pannel')
+    },
+    ReloadPage(){
+      this.$emit('reload-page');
+
     }
+  },
+  components: {
+    ProfilePage,
+    ManagementPage
   },
   props: {
     Opened: {
@@ -24,15 +34,12 @@ export default {
 <template>
   <div class="mask" v-if="Opened">
     <div class="settings-pannel">
-      <h1 class="settings-title">Settings</h1>
+      <div class="head-control">
+        <h1 class="settings-title">Settings</h1>
+        <button class="x" @click="CloseSettingsPanel">X</button>
+      </div>
       <div class="settings-container">
         <div class="settings-menu">
-          <button
-            :class="[{ 'settings-button-active': activeButton === 'general' }, 'settings-button']"
-            @click="activeButton = 'general'"
-          >
-            General
-          </button>
           <button
             :class="[{ 'settings-button-active': activeButton === 'account' }, 'settings-button']"
             @click="activeButton = 'account'"
@@ -50,7 +57,8 @@ export default {
           </button>
         </div>
         <div class="settings-page">
-          <button class="buttons" @click="CloseSettingsPanel">close</button>
+          <ProfilePage :Opened="activeButton" v-if="activeButton === 'account'" @reload-page="ReloadPage"/>
+          <ManagementPage :Opened="activeButton" v-if="activeButton === 'management'" @reload-page="ReloadPage"/>
         </div>
       </div>
     </div>
@@ -73,11 +81,11 @@ p {
 
 .mask {
   width: 100%;
-  height: 110vh;
+  height: 107vh;
   top: -68px;
   position: absolute;
   z-index: 10;
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.35);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -94,6 +102,22 @@ p {
   flex-direction: column;
 }
 
+.head-control {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.x {
+  height: 10px;
+  font-size: 18px;
+  border: none;
+  background-color: #ffffff;
+  position: relative;
+  top: 5px;
+  right: 10px;
+  cursor: pointer;
+}
 .settings-container {
   display: flex;
   flex-direction: row;
@@ -119,7 +143,10 @@ p {
 
 .settings-page {
   width: 80%;
+  height: 350px;
   padding: 10px;
+  overflow-y: scroll;
+  scrollbar-width: none;
 }
 .settings-button {
   padding: 10px 28px;

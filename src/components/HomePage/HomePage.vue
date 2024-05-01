@@ -45,7 +45,6 @@ export default {
       ProfilePageON: false,
       ManagePageON: false,
       SettingsPanelON: false
-
     }
   },
   methods: {
@@ -112,11 +111,15 @@ export default {
       this.ManagePageON = false
       this.getPosts(this.page)
     },
-    OpenSettingsPanel(){
-      this.SettingsPanelON = true;
+    OpenSettingsPanel() {
+      this.SettingsPanelON = true
     },
-    CloseSettingsPanel(){
-      this.SettingsPanelON = false;
+    CloseSettingsPanel() {
+      this.SettingsPanelON = false
+    },
+    UpdatePage(){
+      this.getPosts(this.page)
+      this.getUserInfo()
     },
     ChangeTimeZone(date: Date) {
       const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone
@@ -167,11 +170,7 @@ export default {
         >
           Post
         </button>
-        <button
-        class="buttons account-button"
-        @click="OpenSettingsPanel"
-        >Settings
-      </button>
+        <button class="buttons account-button" @click="OpenSettingsPanel">Settings</button>
       </div>
     </div>
     <div class="article-list">
@@ -204,15 +203,16 @@ export default {
     </div>
   </div>
   <UploadPage
-      v-if="UploadPageON"
-      :Opened="UploadPageON"
-      @close-upload-page="CloseUploadPage"
-      @update-post-list="getPosts(page)"
-    />
-  <SettingsPanel 
+    v-if="UploadPageON"
+    :Opened="UploadPageON"
+    @close-upload-page="CloseUploadPage"
+    @update-post-list="getPosts(page)"
+  />
+  <SettingsPanel
     :Opened="SettingsPanelON"
     v-if="SettingsPanelON"
     @close-settings-pannel="CloseSettingsPanel"
+    @reload-page="UpdatePage"
   />
 </template>
 
@@ -482,7 +482,7 @@ p {
     height: 250px;
     justify-content: center;
     padding-bottom: 30px;
-    padding: 10px
+    padding: 10px;
   }
 
   .post-items-cover img {

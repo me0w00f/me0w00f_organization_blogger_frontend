@@ -68,12 +68,17 @@ export default {
       await axios.delete('/api/posts/delete', config).then((response) => {
         if (response.data.Status == 'Success!') {
           this.GetOwnedPosts(this.page)
+          this.GetCategories()
+          this.$emit('reload-page')
         }
       })
     }
   },
   props: {
-    Opened: Boolean
+    Opened: {
+      type: String,
+      required: true
+    }
   },
   mounted() {
     this.GetOwnedPosts(this.page)
@@ -83,7 +88,7 @@ export default {
 </script>
 
 <template>
-  <div class="management-panel" v-if="Opened">
+  <div class="management-panel" v-if="Opened == 'management'">
     <h1 class="management-title">Management</h1>
     <h2 class="management-subtitle">Your Posts</h2>
     <table>
@@ -124,7 +129,6 @@ export default {
         </tr>
       </tbody>
     </table>
-    <button class="buttons" @click="ClosePage">Close</button>
   </div>
 </template>
 
@@ -150,8 +154,8 @@ p {
 }
 
 .management-title {
-  font-size: 50px;
-  line-height: 100px;
+  font-size: 24px;
+  line-height: 30px;
   padding-top: 10px;
   cursor: pointer;
   color: var(--text-font-color);
@@ -159,12 +163,13 @@ p {
 }
 
 .management-subtitle {
-  line-height: 60px;
+  font-size: 16px;
+  line-height: 30px;
 }
 
 .management-panel {
-  width: 55vw;
-  height: 90vh;
+  width: 100%;
+  height: auto;
   animation: FadeIn 0.5s;
   background-color: #ffffff;
 }
@@ -173,6 +178,7 @@ table {
   width: auto;
   border-collapse: collapse;
   font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght', system-ui, sans;
+  font-size: 14px;
 }
 
 th,

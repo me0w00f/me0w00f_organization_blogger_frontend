@@ -13,6 +13,7 @@ type BlogPost = {
   post_uuid: string
   title: string
   tags: string
+  cover_url: string
   author_uuid: string
   author: string
   category_id: Number
@@ -95,6 +96,7 @@ export default {
         this.post_uuid != '' &&
         this.posts_title != '' &&
         this.tags != '' &&
+        this.cover_url != '' &&
         this.category_id != null &&
         this.post_file != null
       ) {
@@ -138,6 +140,7 @@ export default {
         this.original_post = response.data
         this.posts_title = this.original_post.title
         this.category_id = this.original_post.category_id.toString()
+        this.cover_url = this.original_post.cover_url
         this.tags = this.original_post.tags
       } catch (error) {
         console.log(error)
@@ -221,12 +224,12 @@ p {
   top: -68px;
   position: absolute;
   width: 100%;
-  height: 110vh;
+  height: 107vh;
   z-index: 10;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.35);
 }
 
 .upload-panel-container {
