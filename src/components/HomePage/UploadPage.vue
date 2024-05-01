@@ -13,6 +13,7 @@ type BlogPost = {
   post_uuid: string
   title: string
   tags: string
+  cover_url: string
   author_uuid: string
   author: string
   category_id: Number
@@ -30,6 +31,7 @@ export default {
       posts_title: '',
       tags: '',
       category_id: '',
+      cover_url: '',
       post_file: null,
       allow_comment: true,
       response_message: '',
@@ -72,6 +74,7 @@ export default {
           }
           data.append('posts_title', this.posts_title)
           data.append('tags', this.tags)
+          data.append('cover_url', this.cover_url)
           data.append('category_id', this.category_id)
           data.append('comment', allow_comment)
           data.append('content_file', this.post_file)
@@ -93,6 +96,7 @@ export default {
         this.post_uuid != '' &&
         this.posts_title != '' &&
         this.tags != '' &&
+        this.cover_url != '' &&
         this.category_id != null &&
         this.post_file != null
       ) {
@@ -113,6 +117,7 @@ export default {
           data.append('post_uuid', this.post_uuid)
           data.append('posts_title', this.posts_title)
           data.append('tags', this.tags)
+          data.append('cover_url', this.cover_url)
           data.append('category_id', this.category_id)
           data.append('comment', allow_comment)
           data.append('new_content_file', this.post_file)
@@ -135,6 +140,7 @@ export default {
         this.original_post = response.data
         this.posts_title = this.original_post.title
         this.category_id = this.original_post.category_id.toString()
+        this.cover_url = this.original_post.cover_url
         this.tags = this.original_post.tags
       } catch (error) {
         console.log(error)
@@ -168,31 +174,34 @@ export default {
 }
 </script>
 <template>
-  <div class="upload-panel-container" v-if="Opened">
-    <h1 class="post-title">Send Your Post</h1>
-    <div class="from-box">
-      <input class="form-input" type="text" placeholder="Title" v-model="posts_title" />
-      <input class="form-input" type="text" placeholder="Tags" v-model="tags" />
-      <input class="form-input" type="text" placeholder="Category ID" v-model="category_id" />
-      <table></table>
-      <p class="check-box-text">
-        <input class="check-box" type="checkbox" v-model="allow_comment" /> Allow Comments.
-        <input class="check-box" type="checkbox" v-model="update_post" /> Update an post:
-        <input
-          class="form-input"
-          type="text"
-          placeholder="UUID of the post"
-          v-if="update_post"
-          v-model="post_uuid"
-          @change="GetOriginalData"
-        />
-      </p>
-      <input type="file" @change="LoadPostFile" />
-    </div>
-    <div class="button-container">
-      <button class="buttons button-upload" @click="sendRequestToServer">Post</button>
-      <button class="buttons button-upload" @click="ClosePage">Close</button>
-      <p class="response-message" v-if="response_message != ''">{{ response_message }}</p>
+  <div class="mask">
+    <div class="upload-panel-container" v-if="Opened">
+      <h1 class="post-title">Send Your Post</h1>
+      <div class="from-box">
+        <input class="form-input" type="text" placeholder="Cover URL" v-model="cover_url" />
+        <input class="form-input" type="text" placeholder="Title" v-model="posts_title" />
+        <input class="form-input" type="text" placeholder="Tags" v-model="tags" />
+        <input class="form-input" type="text" placeholder="Category ID" v-model="category_id" />
+        <table></table>
+        <p class="check-box-text">
+          <input class="check-box" type="checkbox" v-model="allow_comment" /> Allow Comments.
+          <input class="check-box" type="checkbox" v-model="update_post" /> Update an post:
+          <input
+            class="form-input"
+            type="text"
+            placeholder="UUID of the post"
+            v-if="update_post"
+            v-model="post_uuid"
+            @change="GetOriginalData"
+          />
+        </p>
+        <input type="file" @change="LoadPostFile" />
+      </div>
+      <div class="button-container">
+        <button class="buttons button-upload" @click="sendRequestToServer">Post</button>
+        <button class="buttons button-upload" @click="ClosePage">Close</button>
+        <p class="response-message" v-if="response_message != ''">{{ response_message }}</p>
+      </div>
     </div>
   </div>
 </template>
@@ -210,39 +219,54 @@ p {
   font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght', system-ui, sans;
   /* text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3); */
 }
+
+.mask {
+  top: -68px;
+  position: absolute;
+  width: 100%;
+  height: 107vh;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.35);
+}
+
 .upload-panel-container {
-  width: 55vw;
-  height: 90vh;
+  width: 500px;
+  height: auto;
   animation: FadeIn 0.5s;
   background-color: #ffffff;
+  border-radius: 20px;
+  padding: 40px;
 }
 
 .post-title {
-  font-size: 50px;
-  line-height: 100px;
+  font-size: 30px;
+  line-height: 60px;
+  cursor: default;
+  color: var(--text-font-color);
+  transition: ease 0.5s;
   padding-left: 20px;
   padding-top: 10px;
-  transition: ease 0.5s;
-  color: var(--text-font-color);
   /* text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3); */
 }
 
 .from-box {
-  width: 100%;
   height: auto;
   display: flex;
   flex-direction: column;
-  /* padding: 20px; */
+  padding: 20px;
 }
 
 .form-input {
   font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght', system-ui, sans;
   font-size: 18px;
-  line-height: 40px;
+  line-height: 30px;
   border: none;
   border-bottom: solid 2px #212121;
   outline: none;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   transition: ease-out 250ms;
   /* text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3); */
 }
@@ -257,15 +281,16 @@ p {
   justify-content: space-around;
   display: flex;
   flex-direction: column;
+  padding: 20px;
 }
 
 .button-upload {
-  width: 80%;
+  width: 100%;
 }
 
 .check-box-text {
   font-size: 18px;
-  line-height: 50px;
+  line-height: 20px;
   padding: 10px;
   /* text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3); */
 }
@@ -277,8 +302,8 @@ p {
 }
 
 .response-message {
-  font-size: 18px;
-  line-height: 50px;
+  font-size: 14px;
+  line-height: 20px;
   /* text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3); */
 }
 

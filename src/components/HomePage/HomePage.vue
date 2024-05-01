@@ -3,8 +3,7 @@ import axios from 'axios'
 import { AuthenticateStatus } from '@/stores/authentication_status'
 import { storeToRefs } from 'pinia'
 import UploadPage from './UploadPage.vue'
-import ProfilePage from './ProfilePage.vue'
-import ManagementPage from '../Management/ManagementPage.vue'
+import SettingsPanel from '../SettingsPanel/SettingsPanel.vue'
 import moment from 'moment-timezone'
 
 type BlogPost = {
@@ -44,7 +43,8 @@ export default {
       isLogged: false,
       UploadPageON: false,
       ProfilePageON: false,
-      ManagePageON: false
+      ManagePageON: false,
+      SettingsPanelON: false
     }
   },
   methods: {
@@ -111,6 +111,16 @@ export default {
       this.ManagePageON = false
       this.getPosts(this.page)
     },
+    OpenSettingsPanel() {
+      this.SettingsPanelON = true
+    },
+    CloseSettingsPanel() {
+      this.SettingsPanelON = false
+    },
+    UpdatePage(){
+      this.getPosts(this.page)
+      this.getUserInfo()
+    },
     ChangeTimeZone(date: Date) {
       const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone
       const date_to_return = moment.utc(date).tz(timezone).format('YYYY-MM-DD HH:mm')
@@ -137,8 +147,7 @@ export default {
   },
   components: {
     UploadPage,
-    ProfilePage,
-    ManagementPage
+    SettingsPanel
   }
 }
 </script>
@@ -154,7 +163,6 @@ export default {
         {{ user_info.bio }}
       </p>
       <div class="button-container" v-if="isLogged">
-        <button class="buttons account-button" @click="OpenProfilePage">Profile</button>
         <button
           class="buttons account-button"
           v-if="user_info.administrator"
@@ -162,36 +170,10 @@ export default {
         >
           Post
         </button>
-        <button
-          class="buttons account-button"
-          v-if="user_info.administrator"
-          @click="OpenManagePage"
-        >
-          Manage
-        </button>
+        <button class="buttons account-button" @click="OpenSettingsPanel">Settings</button>
       </div>
     </div>
-    <ProfilePage
-      v-if="ProfilePageON"
-      :Opened="ProfilePageON"
-      @close-profile-page="CloseProfilePage"
-      @reload-profile="getUserInfo"
-    />
-    <UploadPage
-      v-if="UploadPageON"
-      :Opened="UploadPageON"
-      @close-upload-page="CloseUploadPage"
-      @update-post-list="getPosts(page)"
-    />
-    <ManagementPage
-      v-if="ManagePageON"
-      :Opened="ManagePageON"
-      @close-management-page="CloseManagePage"
-    />
-    <div
-      class="article-list"
-      v-if="UploadPageON == false && ProfilePageON == false && ManagePageON == false"
-    >
+    <div class="article-list">
       <p class="post-info-text" v-if="isLoading">Loading.....</p>
       <div class="post-items" v-for="post in posts.data">
         <div class="post-items-cover">
@@ -220,6 +202,18 @@ export default {
       <!-- Show All tags here -->
     </div>
   </div>
+  <UploadPage
+    v-if="UploadPageON"
+    :Opened="UploadPageON"
+    @close-upload-page="CloseUploadPage"
+    @update-post-list="getPosts(page)"
+  />
+  <SettingsPanel
+    :Opened="SettingsPanelON"
+    v-if="SettingsPanelON"
+    @close-settings-pannel="CloseSettingsPanel"
+    @reload-page="UpdatePage"
+  />
 </template>
 
 <style scoped>
@@ -488,7 +482,7 @@ p {
     height: 250px;
     justify-content: center;
     padding-bottom: 30px;
-    padding: 10px
+    padding: 10px;
   }
 
   .post-items-cover img {
