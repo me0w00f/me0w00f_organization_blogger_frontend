@@ -182,7 +182,7 @@ export default {
             @click="ReadPost(post.post_uuid)"
             v-if="post.cover_url != null"
           />
-          <img src="src/assets/icons/logo-color.png" @click="ReadPost(post.post_uuid)" v-else />
+          <img src="../../assets/icons/logo-color.png" @click="ReadPost(post.post_uuid)" v-else />
         </div>
         <div class="post-items-info">
           <h1 class="post-title" @click="ReadPost(post.post_uuid)">{{ post.title }}</h1>
@@ -299,7 +299,7 @@ p {
 
 .post-items {
   width: 95%;
-  height: 280px;
+  height: auto;
   /* box-shadow: 0px 2.5px 5px rgba(0, 0, 0, 0.2); */
   border-bottom: solid 1px rgba(0, 0, 0, 0.2);
   margin-top: 10px;
