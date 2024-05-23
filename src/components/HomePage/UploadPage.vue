@@ -184,9 +184,14 @@ export default {
         <input class="form-input" type="text" placeholder="Category ID" v-model="category_id" />
         <table></table>
         <p class="check-box-text">
-          <input class="check-box" type="checkbox" v-model="allow_comment" /> Allow Comments.
-          <input class="check-box" type="checkbox" v-model="update_post" /> Update an post:
-          <input
+          <div>
+            <input class="check-box" type="checkbox" v-model="allow_comment" /> Allow Comments.
+          </div>
+          <div>
+            <input class="check-box" type="checkbox" v-model="update_post" /> Update an post:
+          </div>
+          <div>
+            <input
             class="form-input"
             type="text"
             placeholder="UUID of the post"
@@ -194,6 +199,7 @@ export default {
             v-model="post_uuid"
             @change="GetOriginalData"
           />
+          </div>
         </p>
         <input type="file" @change="LoadPostFile" />
       </div>
@@ -222,7 +228,7 @@ p {
 
 .mask {
   top: -68px;
-  position: absolute;
+  position: fixed;
   width: 100%;
   height: 107vh;
   z-index: 10;
@@ -292,6 +298,9 @@ p {
   font-size: 18px;
   line-height: 20px;
   padding: 10px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
   /* text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3); */
 }
 
@@ -308,17 +317,31 @@ p {
 }
 
 @media only screen and (max-width: 768px) {
+  .mask {
+    top: 150px;
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0);
+  }
+
   .upload-panel-container {
     width: 100%;
-    height: auto;
-    animation: FadeIn 0.5s;
+    height: 100%;
+    box-shadow: 0px -5px 10px 0px rgba(0, 0, 0, 0.2);
+    animation: SlideUp 0.5s;
     background-color: #ffffff;
+    justify-content: center;
   }
 
   .post-title {
-    font-size: 25px;
+    font-size: 20px;
     line-height: 40px;
-    padding-left: 20px;
+    padding-left: 10px;
     padding-top: 10px;
     transition: ease 0.5s;
     color: var(--text-font-color);
@@ -335,15 +358,17 @@ p {
 
   .form-input {
     font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght', system-ui, sans;
-    font-size: 18px;
-    line-height: 30px;
+    font-size: 16px;
+    line-height: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
     border: none;
     border-bottom: solid 2px #212121;
     outline: none;
     margin-bottom: 15px;
     transition: ease-out 250ms;
     width: 80%;
-    margin-left: auto;
+    margin-left: auto; 
     margin-right: auto;
     /* text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3); */
   }
@@ -366,9 +391,11 @@ p {
   }
 
   .check-box-text {
-    font-size: 16px;
-    line-height: 50px;
+    font-size: 14px;
+    line-height: 30px;
     padding: 10px;
+    display: flex;
+    flex-direction: column;
     /* text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3); */
   }
 

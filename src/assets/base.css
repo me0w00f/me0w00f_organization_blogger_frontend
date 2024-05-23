@@ -31,6 +31,16 @@
   }
 }
 
+@keyframes SlideUp {
+  from {
+    transform: translateY(1000px);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}
+
 :root {
   --primary-color: #ef86c1;
   --secondary-color: #ed86c1;
