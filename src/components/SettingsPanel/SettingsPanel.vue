@@ -1,6 +1,6 @@
 <script lang="ts">
-import ProfilePage from '../HomePage/ProfilePage.vue';
-import ManagementPage from '../Management/ManagementPage.vue';
+import ProfilePage from '../HomePage/ProfilePage.vue'
+import ManagementPage from '../Management/ManagementPage.vue'
 
 export default {
   data() {
@@ -12,9 +12,8 @@ export default {
     CloseSettingsPanel() {
       this.$emit('close-settings-pannel')
     },
-    ReloadPage(){
-      this.$emit('reload-page');
-
+    ReloadPage() {
+      this.$emit('reload-page')
     }
   },
   components: {
@@ -57,8 +56,16 @@ export default {
           </button>
         </div>
         <div class="settings-page">
-          <ProfilePage :Opened="activeButton" v-if="activeButton === 'account'" @reload-page="ReloadPage"/>
-          <ManagementPage :Opened="activeButton" v-if="activeButton === 'management'" @reload-page="ReloadPage"/>
+          <ProfilePage
+            :Opened="activeButton"
+            v-if="activeButton === 'account'"
+            @reload-page="ReloadPage"
+          />
+          <ManagementPage
+            :Opened="activeButton"
+            v-if="activeButton === 'management'"
+            @reload-page="ReloadPage"
+          />
         </div>
       </div>
     </div>
@@ -83,7 +90,7 @@ p {
   width: 100%;
   height: 107vh;
   top: -68px;
-  position: absolute;
+  position: fixed;
   z-index: 10;
   background-color: rgba(0, 0, 0, 0.35);
   display: flex;
@@ -180,5 +187,19 @@ p {
   border-radius: 10px;
   color: #ffffff;
   text-align: left;
+}
+
+@media only screen and (max-width: 768px) {
+  .mask {
+    position: fixed;
+    top: 150px;
+    width: 100%;
+    height: 100vh;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0);
+  }
 }
 </style>

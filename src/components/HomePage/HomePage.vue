@@ -259,12 +259,11 @@ p {
   width: 100%;
   height: 100%;
   border-radius: 100%;
-  /* background-color: #f3f3f3; */
+  transition: all 0.3s ease 0s;
 }
 
 .avatar-img:hover {
-  position: relative;
-  top: -10px;
+  transform: translateY(-10px);
 }
 
 .user-name-text {
