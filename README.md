@@ -36,7 +36,7 @@ yarn dev
 ```
 Now you can access the application at `http://localhost:5173`.
 
-## Deployment
+## Deployment Manually.
 Our webUI can be deployed using various web servers, but we officially recommend using `nginx`.
 
 ### Setting Up nginx
@@ -123,4 +123,69 @@ Your Vue.js application should now be served by nginx and accessible via the dom
 That's it! You've successfully set up and deployed the Me0w00f Organization Blog WebUI using nginx. 
 
 Please replace `"yourdomain.com"` with your actual domain name before applying the nginx configuration. This guide assumes a certain level of familiarity with server management and command-line operations. 
+
+
+## Deployment in Docker
+
+### Build image
+
+Before we build the image, we need to execute `yarn build` to generate the static files.
+
+```commandline
+yarn build
+```
+
+Depends on your requirement, You can edit the `nginx.conf` file. Here's an example.
+```conf
+server {
+    listen 80;
+    server_name yourdomain.com;
+
+    root /usr/share/nginx/html;
+    index index.html;
+
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+
+    # Additional configuration for API proxying (if needed)
+    location /api {
+        proxy_pass http://backend:8000/api;
+        # Adjust other proxy settings as needed
+    }
+
+    # Additional configuration for handling static files (if needed)
+    # location /static/ {
+    #     alias /path/to/your/static/files/;
+    #     # Adjust other settings as needed
+    # }
+
+    # Additional configuration for handling uploads (if needed)
+    # location /uploads/ {
+    #     alias /path/to/your/uploaded/files/;
+    #     # Adjust other settings as needed
+    # }
+
+    # Additional configuration for handling other routes (if needed)
+    # location /other/ {
+    #     # Custom configuration for other routes
+    # }
+}
+```
+* Replace `yourdomain.com` with your actual domain name.
+* The `root` directive specifies the root directory where NGINX should look for files to serve. In this case, it's set to the NGINX HTML directory where the Vue.js application files are copied.
+* The `index` directive specifies the default file to serve when a directory is requested. Here, it's set to `index.html`, which is typical for Vue.js applications.
+* The `location /` block handles requests for the root URL and tries to serve existing files or fallback to index.html for Vue.js routing.
+* You can uncomment and customize the additional `location` blocks for handling API endpoints, static files, uploads, or other routes as needed. For example, if you have an API backend running on a separate service, you can use a proxy pass to forward requests to that backend.
+* Make sure to adjust paths and configurations according to your specific requirements and project structure.
+
+Then build the docker image.
+
+```commandline
+docker build -t me0w00f_blog_frontend:VERSION .
+```
+
+Replace the **VERSION** with the version you set.
+
+
 
