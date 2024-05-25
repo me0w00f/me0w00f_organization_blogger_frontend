@@ -204,8 +204,8 @@ tr:nth-child(even) {
 
 @media only screen and (max-width: 768px) {
   .management-title {
-    font-size: 25px;
-    line-height: 40px;
+    font-size: 18px;
+    line-height: 30px;
     padding-top: 10px;
     cursor: pointer;
     color: var(--text-font-color);
@@ -214,9 +214,9 @@ tr:nth-child(even) {
   }
 
   .management-subtitle {
-    font-size: 18px;
+    font-size: 16px;
     padding-left: 20px;
-    line-height: 60px;
+    line-height: 30px;
   }
 
   .management-panel {

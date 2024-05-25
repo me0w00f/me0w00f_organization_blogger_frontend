@@ -192,7 +192,7 @@ p {
 @media only screen and (max-width: 768px) {
   .mask {
     position: fixed;
-    top: 150px;
+    top: 100px;
     width: 100%;
     height: 100vh;
     z-index: 10;
@@ -200,6 +200,97 @@ p {
     justify-content: center;
     align-items: center;
     background-color: rgba(0, 0, 0, 0);
+  }
+  .settings-pannel {
+    width: 100%;
+    height: 100%;
+    background-color: #ffffff;
+    border-radius: 20px;
+    padding: 10px;
+    animation: SlideUp 0.5s;
+    box-shadow: 0px -5px 10px 0px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .head-control {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .x {
+    height: 10px;
+    font-size: 18px;
+    border: none;
+    background-color: #ffffff;
+    position: relative;
+    top: 5px;
+    right: 10px;
+    cursor: pointer;
+  }
+  .settings-container {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+  }
+  .settings-menu {
+    width: 90%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .settings-title {
+    font-size: 30px;
+    line-height: 60px;
+    cursor: default;
+    color: var(--text-font-color);
+    transition: ease 0.5s;
+    padding-left: 30px;
+    padding-top: 10px;
+    /* text-shadow: 0px 0px 2px rgba(13, 13, 13, 0.3); */
+  }
+
+  .settings-page {
+    width: 100%;
+    height: 70%;
+    padding: 10px;
+    overflow-y: scroll;
+    scrollbar-width: none;
+  }
+  .settings-button {
+    padding: 10px 28px;
+    cursor: pointer;
+    border: none;
+    font-size: 16px;
+    font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght', system-ui, sans;
+    color: var(--text-font-color);
+    background-color: #ffffff;
+    border-radius: 10px;
+    text-align: left;
+  }
+
+  .settings-button:hover {
+    transition: ease-out 200ms;
+    filter: brightness(0.95);
+  }
+
+  .settings-button:active {
+    transition: ease-out 200ms;
+    transform: scale(0.975);
+    filter: brightness(0.775);
+  }
+  .settings-button-active {
+    cursor: pointer;
+    background-color: var(--primary-color);
+    padding: 10px 28px;
+    border: none;
+    font-size: 16px;
+    font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght', system-ui, sans;
+    border-radius: 10px;
+    color: #ffffff;
+    text-align: left;
   }
 }
 </style>

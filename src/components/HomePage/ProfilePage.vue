@@ -263,8 +263,8 @@ p {
   }
 
   .profile-title {
-    font-size: 25px;
-    line-height: 40px;
+    font-size: 18px;
+    line-height: 30px;
     padding-left: 20px;
     padding-top: 10px;
     cursor: pointer;
@@ -295,7 +295,7 @@ p {
   .form-input {
     width: 80%;
     font-family: 'Mooli-Regular', 'NotoSansSC-VariableFont_wght', system-ui, sans;
-    font-size: 18px;
+    font-size: 16px;
     line-height: 30px;
     border: none;
     border-bottom: solid 2px #212121;
