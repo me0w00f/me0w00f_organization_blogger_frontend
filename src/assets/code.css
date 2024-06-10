@@ -1,6 +1,7 @@
 .codehilite {
   width: 95%;
   margin: 0 auto;
+  font-family: 'Courier New', Courier, monospace;
   font-size: 16px;
   padding: 18px;
   background-color: #ffffff;
@@ -227,8 +228,8 @@ span.linenos.special {
 
 @media only screen and (max-width: 768px) {
   .codehilite {
-    width: auto;
-    /* margin: 0 auto; */
+    width: 90%;
+    margin: 0 auto;
     font-size: 14px;
     padding: 14px;
     background-color: #ffffff;
