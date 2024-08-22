@@ -225,7 +225,6 @@ span.linenos.special {
   color: #1c01ce;
 } /* Literal.Number.Integer.Long */
 
-
 @media only screen and (max-width: 768px) {
   .codehilite {
     width: 90%;
